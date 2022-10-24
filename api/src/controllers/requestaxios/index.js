@@ -77,7 +77,7 @@ const gameIdApi = async (id) => {
 
 const genresApi = async () => {
   try {
-    get.url = "https://api.rawg.io/api/genres/";
+    get.url = "https://api.rawg.io/api/genres";
     const dataApi = await axios.request(get);
     const genres = dataApi.data.results.map((genre) => {
       return { name: genre.name };

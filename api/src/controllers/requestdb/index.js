@@ -11,7 +11,7 @@ const gamesDb = async function () {
         },
       },
     });
-    let dataGames = gamesDb.map((e) => {
+    let dataGames = gamesDb.map((game) => {
       return {
         id: game.id,
         name: game.name,
@@ -20,7 +20,7 @@ const gamesDb = async function () {
         released: game.released,
         description: game.description,
         genres: game.genres.map((genre) => genre.name),
-        platforms: e.platforms,
+        platforms: game.platforms,
       };
     });
     return dataGames;
@@ -38,7 +38,7 @@ const gamesNameDb = async (query) => {
   return [];
 };
 
-const gamesIdBd = async (id) => {
+const gameIdBd = async (id) => {
   try {
     const game = await Videogame.findByPk(id);
     return game;
@@ -59,6 +59,6 @@ const getGenresDb = async function () {
 module.exports = {
   gamesDb,
   getGenresDb,
-  gamesIdBd,
+  gameIdBd,
   gamesNameDb,
 };
