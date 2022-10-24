@@ -22,6 +22,7 @@ const saveInfo = function (game, save) {
       });
     }
   } else {
+    console.log(game);
     return {
       id: game.id,
       name: game.name,
@@ -30,7 +31,7 @@ const saveInfo = function (game, save) {
       released: game.released,
       description: game.description,
       genres: game.genres.map((genre) => genre.name),
-      platforms: game.platforms.map((p) => p.platform.name),
+      platforms: game.platforms.map((e) => e.platform.name),
     };
   }
 };
@@ -52,6 +53,7 @@ const gamesApi = async () => {
 };
 
 const gamesNameApi = async function (name) {
+  get.url = "https://api.rawg.io/api/games";
   get.params.search = name;
   const dataGames = [];
   try {

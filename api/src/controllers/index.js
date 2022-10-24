@@ -31,7 +31,6 @@ const getGamesName = async (name) => {
     let info = await Promise.all([gamesNameApi(name), gamesNameDb(name)]).then(
       (allInfo) => [...allInfo[1], ...allInfo[0]]
     );
-    console.log(info);
     return info;
   } catch (error) {
     console.error(error);

@@ -4,7 +4,7 @@ const router = Router();
 
 router.get("", getAllGames);
 
-router.get(":idVideogame", getIdGame);
+router.get("/:idVideogame", getIdGame);
 
 router.post("", postGame);
 module.exports = router;

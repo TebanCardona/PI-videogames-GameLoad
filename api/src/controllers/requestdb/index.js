@@ -1,6 +1,6 @@
 const { Videogame, Genre } = require("../../db");
 
-const gamesDb = async function () {
+const gamesDb = async function (name) {
   try {
     const gamesDb = await Videogame.findAll({
       include: {
