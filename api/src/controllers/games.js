@@ -1,5 +1,3 @@
-// const e = require("express");
-const { response } = require("express");
 const { gameIdBd } = require("./requestdb");
 const { gameIdApi } = require("./requestaxios");
 const { getGames, getGamesName, saveGenresGet } = require("./index");

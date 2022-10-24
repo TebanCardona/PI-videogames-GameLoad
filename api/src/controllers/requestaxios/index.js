@@ -22,7 +22,6 @@ const saveInfo = function (game, save) {
       });
     }
   } else {
-    console.log(game);
     return {
       id: game.id,
       name: game.name,
