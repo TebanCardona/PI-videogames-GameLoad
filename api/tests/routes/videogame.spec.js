@@ -10,7 +10,7 @@ const videogame = {
   name: "Super Mario Bros",
 };
 
-describe("Videogame routes", () => {
+xdescribe("Videogame routes", () => {
   // before(() =>
   //   conn.authenticate().catch((err) => {
   //     console.error("Unable to connect to the database:", err);
