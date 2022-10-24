@@ -14,8 +14,9 @@ const saveInfo = function (game, save) {
       data.push({
         id: game.id,
         name: game.name,
-        image: game.background_image,
         rating: game.rating,
+        released: game.released,
+        image: game.background_image,
         genres: game.genres.map((genre) => genre.name),
         platforms: game.platforms.map((p) => p.platform.name),
       });
