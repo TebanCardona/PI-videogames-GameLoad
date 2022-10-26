@@ -34,7 +34,8 @@ const getIdGame = async (req, res) => {
     ? (game = await gameIdBd(idVideogame))
     : (game = await gameIdApi(idVideogame));
   try {
-    if (!game) return res.status(404).send({ error: "Id not found" });
+    if (game === "Not found.")
+      return res.status(404).send({ error: "Id not found" });
     return res.send(game);
   } catch (error) {
     res.status(500).send(error);

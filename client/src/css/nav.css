@@ -1,0 +1,39 @@
+.div-nav {
+  display: flex;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  justify-content: space-around;
+  background-color: aliceblue;
+}
+
+.nav-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.5em;
+}
+
+.title-botton {
+  color: blue;
+  font-size: 1.5em;
+}
+
+.logo {
+  width: 70px;
+  height: auto;
+}
+
+.back {
+  background: none;
+  border: none;
+}
+
+
+
+
+.back :hover {
+  cursor: pointer;
+}

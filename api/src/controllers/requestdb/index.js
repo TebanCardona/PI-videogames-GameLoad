@@ -1,6 +1,6 @@
 const { Videogame, Genre } = require("../../db");
 
-const gamesDb = async function (name) {
+const gamesDb = async function () {
   try {
     const gamesDb = await Videogame.findAll({
       include: {
@@ -43,7 +43,7 @@ const gameIdBd = async (id) => {
     const game = await Videogame.findByPk(id);
     return game;
   } catch (error) {
-    console.error(error);
+    return "Not found.";
   }
 };
 const getGenresDb = async function () {

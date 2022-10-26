@@ -1,0 +1,8 @@
+.filter {
+  display: flex;
+  justify-content: space-around;
+}
+
+.logo-filter {
+  width: 32px;
+}
