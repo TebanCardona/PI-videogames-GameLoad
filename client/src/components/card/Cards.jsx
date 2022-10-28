@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import "../../css/cards.css";
 const Card = ({ name, image, id }) => {
   return (
     <div className="card">

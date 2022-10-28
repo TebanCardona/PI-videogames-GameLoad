@@ -1,5 +1,6 @@
 import {
   GET_ALL_GAMES,
+  GET_GAMES_NAME,
   GET_ALL_GENRES,
   GET_GAME_DETAILS,
   FILTERS,
@@ -10,6 +11,7 @@ import {
 
 const initialState = {
   games: [],
+  gamesName: [],
   gamesFilter: [],
   genres: [],
   gameDetail: {},
@@ -23,6 +25,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         games: action.payload.slice(0, 15),
+      };
+    case GET_GAMES_NAME:
+      return {
+        ...state,
+        gamesName: action.payload,
       };
     case GET_GAME_DETAILS:
       return {

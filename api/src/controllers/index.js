@@ -1,4 +1,9 @@
-const { gamesApi, genresApi, gamesNameApi } = require("./requestaxios");
+const {
+  gamesApi,
+  genresApi,
+  gamesNameApi,
+  platformApi,
+} = require("./requestaxios");
 const { gamesDb, getGenresDb, gamesNameDb } = require("./requestdb");
 const { Genre } = require("../db");
 
@@ -11,6 +16,18 @@ const saveGenresGet = async function () {
       dataGenresDb = await getGenresDb();
     }
     return dataGenresDb;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const PlatformsGet = async function () {
+  try {
+    let platforms = await platformApi();
+    const platformsArr = [];
+    platforms.forEach((e) => {
+      platformsArr.push(e);
+    });
+    return platformsArr;
   } catch (error) {
     console.error(error);
   }
@@ -37,4 +54,4 @@ const getGamesName = async (name) => {
   }
 };
 
-module.exports = { saveGenresGet, getGames, getGamesName };
+module.exports = { saveGenresGet, getGames, getGamesName, PlatformsGet };

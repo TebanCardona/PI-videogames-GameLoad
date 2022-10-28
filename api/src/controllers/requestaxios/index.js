@@ -5,6 +5,7 @@ const get = {
   url: "https://api.rawg.io/api/games",
   params: { key: apikey },
 };
+const platform = new Set();
 const saveInfo = function (game) {
   html = game.description.replace(/<style([\s\S]*?)<\/style>/gi, "");
   html = html.replace(/<script([\s\S]*?)<\/script>/gi, "");
@@ -41,7 +42,10 @@ const gamesApi = async () => {
           released: game.released,
           image: game.background_image,
           genres: game.genres.map((genre) => genre.name),
-          platforms: game.platforms.map((p) => p.platform.name),
+          platforms: game.platforms.map((p) => {
+            platform.add(p.platform.name);
+            return p.platform.name;
+          }),
         });
         get.url = gamesData.data.next;
       });
@@ -90,5 +94,16 @@ const genresApi = async () => {
     console.error(error);
   }
 };
+const platformApi = async () => {
+  try {
+    if (platform.size > 0) return platform;
+    else {
+      await gamesApi();
+      return platform;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-module.exports = { gamesApi, gamesNameApi, gameIdApi, genresApi };
+module.exports = { gamesApi, gamesNameApi, gameIdApi, genresApi, platformApi };

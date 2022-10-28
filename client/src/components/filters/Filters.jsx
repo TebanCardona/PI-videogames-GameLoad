@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllGenres, order } from "../../redux/actions";
 import imageFilter from "../../img/filter.png";
+import SearchBar from "./SearchBar";
 import "../../css/filters.css";
 export default function Filters() {
   const [filters, setFilters] = useState({
@@ -26,7 +27,6 @@ export default function Filters() {
   }, [dispatch]);
   useEffect(() => {
     var gamesArr = [...games];
-    console.log(filters);
     if (filters.created)
       gamesArr = gamesArr.filter((game) => game.id.length > 7);
     if (filters.genre === "Select") dispatch(order(gamesArr));
@@ -68,43 +68,47 @@ export default function Filters() {
       });
     }
     dispatch(order(gamesArr));
-  }, [filters]);
+  }, [dispatch, filters, games]);
 
   return (
-    <div className="filter">
-      <img src={imageFilter} alt="logo filter" className="logo-filter" />
-      <span>Filters</span>
-      <div>
-        <span>Created : </span>
-        <input type={"checkbox"} name="created" onChange={handleChange} />
-      </div>
-      <div>
-        <span>Genres:</span>
-        <select
-          name="genre"
-          id="genres"
-          onChange={handleChange}
-          value={filters.genre}
-        >
-          <option value="Select">Select</option>
-          {genres.map((genre) => {
-            return (
-              <option value={genre.name} key={genre.id}>
-                {genre.name}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-      <div>
-        <span>Sort:</span>
-        <select name="sort" id="sort" onChange={handleChange}>
-          <option value="None">None</option>
-          <option value="A-Z">A-Z</option>
-          <option value="Z-A">Z-A</option>
-          <option value="Max-Rating">Max-Rating</option>
-          <option value="Min-Rating">Min-Rating</option>
-        </select>
+    <div>
+      <SearchBar />
+
+      <div className="filter">
+        <img src={imageFilter} alt="logo filter" className="logo-filter" />
+        <span>Filters</span>
+        <div>
+          <span>Created : </span>
+          <input type={"checkbox"} name="created" onChange={handleChange} />
+        </div>
+        <div>
+          <span>Genres:</span>
+          <select
+            name="genre"
+            id="genres"
+            onChange={handleChange}
+            value={filters.genre}
+          >
+            <option value="Select">Select</option>
+            {genres.map((genre) => {
+              return (
+                <option value={genre.name} key={genre.id}>
+                  {genre.name}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div>
+          <span>Sort:</span>
+          <select name="sort" id="sort" onChange={handleChange}>
+            <option value="None">None</option>
+            <option value="A-Z">A-Z</option>
+            <option value="Z-A">Z-A</option>
+            <option value="Max-Rating">Max-Rating</option>
+            <option value="Min-Rating">Min-Rating</option>
+          </select>
+        </div>
       </div>
     </div>
   );

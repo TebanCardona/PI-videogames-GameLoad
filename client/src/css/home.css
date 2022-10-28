@@ -6,3 +6,11 @@ body {
   height: 100vh;
   background-color: green;
 }
+
+.cards-all {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: repeat(auto-fill, minmax(19.4rem, 1fr));
+  margin-top: 0.5rem;
+  justify-items: center;
+}
