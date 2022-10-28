@@ -6,13 +6,22 @@ const get = {
   params: { key: apikey },
 };
 const saveInfo = function (game) {
+  html = game.description.replace(/<style([\s\S]*?)<\/style>/gi, "");
+  html = html.replace(/<script([\s\S]*?)<\/script>/gi, "");
+  html = html.replace(/<\/div>/gi, "\n");
+  html = html.replace(/<\/li>/gi, "\n");
+  html = html.replace(/<li>/gi, "  *  ");
+  html = html.replace(/<\/ul>/gi, "\n");
+  html = html.replace(/<\/p>/gi, "\n");
+  html = html.replace(/<br\s*[\/]?>/gi, "\n");
+  description = html.replace(/<[^>]+>/gi, "");
   return {
     id: game.id,
     name: game.name,
     image: game.background_image,
     rating: game.rating,
     released: game.released,
-    description: game.description,
+    description: description,
     genres: game.genres.map((genre) => genre.name),
     platforms: game.platforms.map((e) => e.platform.name),
   };

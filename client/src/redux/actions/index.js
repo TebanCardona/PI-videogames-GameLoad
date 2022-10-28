@@ -3,7 +3,9 @@ export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_GAME_DETAILS = "GET_GAME_DETAILS";
 export const GET_GAMES_NAME = "GET_GAMES_NAME";
 export const GET_ALL_GENRES = "GET_ALL_GENRES";
-export const ORDER_BY_GENRE = "ORDER_BY_GENRE";
+export const FILTERS = "FILTERS";
+export const SET_ALL_PAGE = "SET_ALL_PAGE";
+export const LOADING = "LOADING";
 
 export const getAllGames = () => {
   return async function (dispatch) {
@@ -13,46 +15,40 @@ export const getAllGames = () => {
 };
 
 export const getAllGenres = () => {
-  return function (dispatch) {
-    return fetch(`http://localhost:3001/genres`)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: GET_ALL_GENRES,
-          payload: data,
-        });
-      });
+  return async function (dispatch) {
+    let genres = await axios("http://localhost:3001/genres");
+    return dispatch({ type: GET_ALL_GENRES, payload: genres.data });
   };
 };
 
 export const getGameName = (name) => {
-  return function (dispatch) {
-    return fetch(`http://localhost:3001/videogames?name=${name}`)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: GET_GAMES_NAME,
-          payload: data,
-        });
-      });
+  return async function (dispatch) {
+    let game = await axios(`http://localhost:3001/videogames?name=${name}`);
+    return dispatch({ type: GET_GAMES_NAME, payload: game.data });
   };
 };
 
 export const getGameDetail = (id) => {
-  return function (dispatch) {
-    return fetch(`http://localhost:3001/videogames/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        dispatch({
-          type: GET_GAME_DETAILS,
-          payload: data,
-        });
-      });
+  return async function (dispatch) {
+    let game = await axios(`http://localhost:3001/videogames/${id}`);
+    return dispatch({ type: GET_GAME_DETAILS, payload: game.data });
   };
 };
-export const orderGenre = (genre) => {
+export const order = (games) => {
   return {
-    type: ORDER_BY_GENRE,
-    payload: genre,
+    type: FILTERS,
+    payload: games,
+  };
+};
+export const loading = (load) => {
+  return {
+    type: LOADING,
+    payload: load,
+  };
+};
+export const setAllPage = (pages) => {
+  return {
+    type: SET_ALL_PAGE,
+    payload: pages,
   };
 };

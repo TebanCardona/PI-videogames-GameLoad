@@ -42,16 +42,8 @@ const getIdGame = async (req, res) => {
   }
 };
 const postGame = async (req, res) => {
-  const {
-    name,
-    image,
-    description,
-    released,
-    rating,
-    genres,
-    platforms,
-    createdVideoGame,
-  } = req.body;
+  const { name, image, description, released, rating, genres, platforms } =
+    req.body;
   try {
     if (!name || !description || !description || !platforms)
       return res.status(404).send({ error: "Send all date require" });
@@ -63,7 +55,6 @@ const postGame = async (req, res) => {
       rating,
       genres,
       platforms,
-      createdVideoGame,
     });
     await saveGenresGet();
     let genresDb = await Genre.findAll({

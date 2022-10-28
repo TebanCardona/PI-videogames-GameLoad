@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../redux/actions";
 import Cards from "../card/Cards.jsx";
 import "../../css/home.css";
 function Home() {
-  const [loader, setloader] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actions.getAllGames());
-    setloader(true);
+    async function loadPage() {
+      dispatch(actions.loading(true));
+      await dispatch(actions.getAllGames());
+      dispatch(actions.loading(false));
+    }
+    loadPage();
   }, [dispatch]);
-  const games = useSelector((state) => state.games);
+  let { games, gamesFilter, load } = useSelector((state) => state);
+  if (gamesFilter.length > 0) games = gamesFilter;
   return (
-    <div className="home">
+    <div>
+      {load && games.length === 0 && <div className="not-load"></div>}
       {games.map((game) => {
         return (
           <div key={game.id}>

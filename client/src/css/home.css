@@ -2,6 +2,7 @@ body {
   background-color: blanchedalmond;
 }
 
-.home {
-  color: white;
+.not-load {
+  height: 100vh;
+  background-color: green;
 }
