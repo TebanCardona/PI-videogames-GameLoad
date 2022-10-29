@@ -18,29 +18,65 @@ export default function Detail() {
     };
   }, [dispatch, id]);
   let { gameDetail, load } = useSelector((state) => state);
+
   return (
-    <div>
-      {load && gameDetail && <div className="not-load"></div>}
+    <div className="detail">
+      {load && (
+        <div className="loading">
+          <div className="spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      )}
       {!load && (
-        <div>
-          {" "}
-          <h1>{gameDetail.name}</h1>
-          <img
-            src={gameDetail.image}
-            alt={gameDetail.name}
-            style={{ width: "300px" }}
-          />
-          <p>description: {gameDetail.description}</p>
-          <p>rating: {gameDetail.rating} ⭐</p>
-          <p>Released: {gameDetail.released}</p>
-          <span>genres: </span>
-          {gameDetail.genres?.map((genre) => (
-            <span key={genre}>{genre} </span>
-          ))}
-          <p>Platforms: </p>
-          {gameDetail.platforms?.map((platform) => (
-            <span key={platform}>{platform} </span>
-          ))}
+        <div className="detail-content">
+          <div className="title-image">
+            {" "}
+            <h1>{gameDetail.name}</h1>
+            <img
+              src={gameDetail.image}
+              alt={gameDetail.name}
+              style={{ width: "600px", borderRadius: "1em" }}
+            />
+          </div>
+          <div className="detail-text">
+            <div
+              dangerouslySetInnerHTML={{ __html: gameDetail.description }}
+            ></div>
+            <span className="title-detail">
+              {" "}
+              <b> Rating: </b>{" "}
+            </span>{" "}
+            <span>{gameDetail.rating} ⭐</span>
+            <br />
+            <br />
+            <span className="title-detail">
+              <b> Released:</b>{" "}
+            </span>{" "}
+            <span>{gameDetail.released}</span>
+            <br />
+            <br />
+            <span className="title-detail">
+              <b>Genres: </b>
+            </span>
+            {gameDetail.genres?.map((genre) => (
+              <span key={genre}>{genre} </span>
+            ))}
+            <br />
+            <br />
+            <span className="title-detail">
+              {" "}
+              <b>Platforms:</b>{" "}
+            </span>
+            {gameDetail.platforms?.map((platform) => (
+              <span key={platform}>{platform} </span>
+            ))}
+          </div>
         </div>
       )}
     </div>

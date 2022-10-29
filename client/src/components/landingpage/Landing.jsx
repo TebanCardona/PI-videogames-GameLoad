@@ -12,7 +12,7 @@ export default class Lading extends Component {
           <h1 className="title-start">Games Load</h1>
           <Link to={"/home"}>
             <button type={"button"} className="button-start">
-              Start
+              <span>PLAY NOW</span>
             </button>
           </Link>
         </div>

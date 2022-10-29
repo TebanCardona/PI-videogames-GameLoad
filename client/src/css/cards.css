@@ -1,0 +1,14 @@
+.card {
+  background-color: rgb(136, 216, 57);
+  width: 310px;
+  height: 522px;
+  padding: 0.1em;
+  margin: 1em;
+  border-radius: 1em;
+  border: 1px solid white;
+}
+
+.link-card {
+  display: flex;
+  justify-content: center;
+}
