@@ -7,30 +7,25 @@ const get = {
 };
 const platform = new Set();
 const saveInfo = function (game) {
-  html = game.description.replace(/<style([\s\S]*?)<\/style>/gi, "");
-  html = html.replace(/<script([\s\S]*?)<\/script>/gi, "");
-  html = html.replace(/<\/div>/gi, "\n");
-  html = html.replace(/<\/li>/gi, "\n");
-  html = html.replace(/<li>/gi, "  *  ");
-  html = html.replace(/<\/ul>/gi, "\n");
-  html = html.replace(/<\/p>/gi, "\n");
-  html = html.replace(/<br\s*[\/]?>/gi, "\n");
-  description = html.replace(/<[^>]+>/gi, "");
   return {
     id: game.id,
     name: game.name,
     image: game.background_image,
     rating: game.rating,
     released: game.released,
-    description: description,
+    description: game.description,
     genres: game.genres.map((genre) => genre.name),
-    platforms: game.platforms.map((e) => e.platform.name),
+    platforms: game.platforms.map((p) => {
+      platform.add(p.platform.name);
+      return p.platform.name;
+    }),
   };
 };
 
 const gamesApi = async () => {
   const data = [];
   get.url = "https://api.rawg.io/api/games";
+  if (get.params.search) delete get.params.search;
   try {
     for (let i = 0; i < 3; i++) {
       let gamesData = await axios.request(get);
@@ -57,7 +52,7 @@ const gamesApi = async () => {
 };
 
 const gamesNameApi = async function (name) {
-  get.url = "https://api.rawg.io/api/games";
+  get.url = `https://api.rawg.io/api/games`;
   get.params.search = name;
   const dataGames = [];
   try {

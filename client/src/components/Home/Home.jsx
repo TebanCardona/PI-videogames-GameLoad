@@ -13,25 +13,30 @@ function Home() {
     }
     loadPage();
   }, [dispatch]);
-  let { games, gamesFilter, load, gamesName } = useSelector((state) => state);
-  if (gamesName > 0) games = gamesName;
+  let { games, gamesFilter, load } = useSelector((state) => state);
+  // console.log(games);
   games = gamesFilter;
   return (
-    <div className="cards-all">
-      {load && games.length === 0 && <div className="not-load"></div>}
-      {!load && gamesFilter.length === 0 && (
+    <>
+      {load && <div className="not-load"></div>}
+      {!load && games.length === 0 && (
         <div className="not-games">Games not found</div>
       )}
-      {!load &&
-        games.length > 0 &&
-        games.map((game) => {
-          return (
-            <div key={game.id}>
-              <Cards name={game.name} image={game.image} id={game.id} />
-            </div>
-          );
-        })}
-    </div>
+      {!load && typeof games[0]?.error === "string" && (
+        <div className="not-games">{games[0].error}</div>
+      )}
+      {!load && games.length > 0 && (
+        <div className="cards-all">
+          {games.map((game) => {
+            return (
+              <div key={game.id}>
+                <Cards name={game.name} image={game.image} id={game.id} />
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 }
 

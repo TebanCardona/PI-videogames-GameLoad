@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllGenres, order } from "../../redux/actions";
+import { getAllPlatforms, getAllGenres, order } from "../../redux/actions";
 import imageFilter from "../../img/filter.png";
 import SearchBar from "./SearchBar";
 import "../../css/filters.css";
 export default function Filters() {
   const [filters, setFilters] = useState({
     genre: "Select",
+    platform: "Select",
     created: false,
     sort: "None",
   });
   const dispatch = useDispatch();
-  const { genres, games } = useSelector((state) => state);
+  const { genres, games, platforms } = useSelector((state) => state);
   const handleChange = (event) => {
     setFilters({
       ...filters,
@@ -24,8 +25,7 @@ export default function Filters() {
   };
   useEffect(() => {
     dispatch(getAllGenres());
-  }, [dispatch]);
-  useEffect(() => {
+    dispatch(getAllPlatforms());
     var gamesArr = [...games];
     if (filters.created)
       gamesArr = gamesArr.filter((game) => game.id.length > 7);
@@ -37,6 +37,16 @@ export default function Filters() {
           if (genres === filters.genre) hasGenre = true;
         });
         return hasGenre;
+      });
+    }
+    if (filters.platform === "Select") dispatch(order(gamesArr));
+    if (filters.platform !== "Select") {
+      gamesArr = gamesArr.filter((game) => {
+        let hasplatform = false;
+        game.platforms.forEach((platforms) => {
+          if (platforms === filters.platform) hasplatform = true;
+        });
+        return hasplatform;
       });
     }
     if (filters.sort !== "None") {
@@ -76,13 +86,32 @@ export default function Filters() {
 
       <div className="filter">
         <img src={imageFilter} alt="logo filter" className="logo-filter" />
-        <span>Filters</span>
+        <span className="title-filters">
+          {" "}
+          <b> Filters </b>
+        </span>
         <div>
-          <span>Created : </span>
+          <span className="text-filters">Created : </span>
           <input type={"checkbox"} name="created" onChange={handleChange} />
         </div>
         <div>
-          <span>Genres:</span>
+          <span className="text-filters">Platforms : </span>
+          <select
+            name="platform"
+            id="platforms"
+            onChange={handleChange}
+            value={filters.platform}
+          >
+            <option value="Select">Select</option>
+            {platforms.map((p) => (
+              <option value={p} key={p}>
+                {p}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <span className="text-filters">Genres : </span>
           <select
             name="genre"
             id="genres"
@@ -100,7 +129,7 @@ export default function Filters() {
           </select>
         </div>
         <div>
-          <span>Sort:</span>
+          <span className="text-filters">Sort : </span>
           <select name="sort" id="sort" onChange={handleChange}>
             <option value="None">None</option>
             <option value="A-Z">A-Z</option>

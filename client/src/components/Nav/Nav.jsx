@@ -1,14 +1,25 @@
 import React from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loading, refresh, getAllGames } from "../../redux/actions";
 import joystick from "../../img/joystick.png";
 import create from "../../img/create.png";
 import arrow from "../../img/back.png";
+import refreshLogo from "../../img/refresh1.png";
 import "../../css/nav.css";
 export default function Nav() {
+  const dispatch = useDispatch();
   const back = useHistory();
   function handleClik() {
     back.goBack();
   }
+  const handleRefresh = async function () {
+    console.log("hola es el refresh");
+    dispatch(loading(true));
+    dispatch(refresh());
+    await dispatch(getAllGames());
+    dispatch(loading(false));
+  };
   return (
     <div className="div-nav">
       <button type={"button"} onClick={handleClik} className="back">
@@ -17,15 +28,21 @@ export default function Nav() {
           <img src={arrow} alt="arrow back" className="logo" />
         </div>
       </button>
+      <button className="back" onClick={handleRefresh}>
+        <div className="nav-center">
+          <span className="title-botton">Refresh</span>
+          <img src={refreshLogo} alt="Logo refresh" className="logo" />
+        </div>
+      </button>
       <NavLink
         to={"/home"}
         style={{
           textDecoration: "none",
-          color: "blue",
+          color: "aqua",
         }}
         activeStyle={{
           fontWeight: "bold",
-          color: "red",
+          color: "orange",
         }}
       >
         <div className="nav-center">
@@ -37,11 +54,11 @@ export default function Nav() {
         to={"/create"}
         style={{
           textDecoration: "none",
-          color: "blue",
+          color: "aqua",
         }}
         activeStyle={{
           fontWeight: "bold",
-          color: "red",
+          color: "orange",
         }}
       >
         <div className="nav-center">

@@ -2,7 +2,6 @@ const { PlatformsGet } = require("./index");
 const getAllPlatforms = async (req, res) => {
   try {
     const platforms = await PlatformsGet();
-    console.log(platforms);
     if (platforms.length === 0)
       return res.status(400).send({ error: "Not platforms found" });
     return res.send(platforms);

@@ -6,6 +6,9 @@ export const GET_ALL_GENRES = "GET_ALL_GENRES";
 export const FILTERS = "FILTERS";
 export const SET_ALL_PAGE = "SET_ALL_PAGE";
 export const LOADING = "LOADING";
+export const REFRESH = "REFRESH";
+export const REMOVE_GAME = "REMOVE_GAME";
+export const GET_ALL_PLATFORMS = "GET_ALL_PLATFORMS";
 
 export const getAllGames = () => {
   return async function (dispatch) {
@@ -23,8 +26,16 @@ export const getAllGenres = () => {
 
 export const getGameName = (name) => {
   return async function (dispatch) {
-    let game = await axios(`http://localhost:3001/videogames?name=${name}`);
-    return dispatch({ type: GET_GAMES_NAME, payload: game.data });
+    try {
+      let games = await axios(`http://localhost:3001/videogames?name=${name}`);
+      return dispatch({
+        type: GET_GAMES_NAME,
+        payload: games.data.slice(0, 15),
+      });
+    } catch (error) {
+      console.log(error.response.data);
+      return dispatch({ type: GET_ALL_GAMES, payload: error.response.data });
+    }
   };
 };
 
@@ -50,5 +61,22 @@ export const setAllPage = (pages) => {
   return {
     type: SET_ALL_PAGE,
     payload: pages,
+  };
+};
+export const refresh = () => {
+  return {
+    type: REFRESH,
+  };
+};
+export const removeGame = () => {
+  return {
+    type: REMOVE_GAME,
+    payload: {},
+  };
+};
+export const getAllPlatforms = () => {
+  return async function (dispatch) {
+    let platforms = await axios("http://localhost:3001/platforms");
+    return dispatch({ type: GET_ALL_PLATFORMS, payload: platforms.data });
   };
 };

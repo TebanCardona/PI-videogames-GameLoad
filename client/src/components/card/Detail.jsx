@@ -13,38 +13,36 @@ export default function Detail() {
       dispatch(actions.loading(false));
     }
     load();
+    return () => {
+      dispatch(actions.removeGame());
+    };
   }, [dispatch, id]);
   let { gameDetail, load } = useSelector((state) => state);
-  let divLoad;
-  if (load) divLoad = "nop";
   return (
     <div>
       {load && gameDetail && <div className="not-load"></div>}
       {!load && (
-        <div className={divLoad}>
-          <div>
-            {" "}
-            <h1>{gameDetail.name}</h1>
-            <img
-              src={gameDetail.image}
-              alt={gameDetail.name}
-              style={{ width: "300px" }}
-            />
-            <p>description: {gameDetail.description}</p>
-            <p>rating: {gameDetail.rating} ⭐</p>
-            <p>Released: {gameDetail.released}</p>
-            <span>genres: </span>
-            {gameDetail.genres?.map((genre) => (
-              <span key={genre}>{genre} </span>
-            ))}
-            <p>Platforms: </p>
-            {gameDetail.platforms?.map((platform) => (
-              <span key={platform}>{platform} </span>
-            ))}
-          </div>
+        <div>
+          {" "}
+          <h1>{gameDetail.name}</h1>
+          <img
+            src={gameDetail.image}
+            alt={gameDetail.name}
+            style={{ width: "300px" }}
+          />
+          <p>description: {gameDetail.description}</p>
+          <p>rating: {gameDetail.rating} ⭐</p>
+          <p>Released: {gameDetail.released}</p>
+          <span>genres: </span>
+          {gameDetail.genres?.map((genre) => (
+            <span key={genre}>{genre} </span>
+          ))}
+          <p>Platforms: </p>
+          {gameDetail.platforms?.map((platform) => (
+            <span key={platform}>{platform} </span>
+          ))}
         </div>
       )}
     </div>
   );
-  // return <div>no hecho nada jajaj xD</div>;
 }

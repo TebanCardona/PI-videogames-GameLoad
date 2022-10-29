@@ -3,6 +3,16 @@
   justify-content: space-around;
 }
 
+.text-filters {
+  color: aquamarine;
+  font-size: 1.3em;
+}
+
+.title-filters {
+  color: black;
+  font-size: 1.4em;
+}
+
 .logo-filter {
-  width: 32px;
+  width: 39px;
 }

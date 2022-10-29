@@ -6,14 +6,17 @@ import {
   FILTERS,
   SET_ALL_PAGE,
   LOADING,
+  REFRESH,
+  REMOVE_GAME,
+  GET_ALL_PLATFORMS,
 } from "../actions/index";
 // Importa las action types acá
 
 const initialState = {
   games: [],
-  gamesName: [],
   gamesFilter: [],
   genres: [],
+  platforms: [],
   gameDetail: {},
   load: false,
   pages: 0,
@@ -24,12 +27,12 @@ const rootReducer = (state = initialState, action) => {
     case GET_ALL_GAMES:
       return {
         ...state,
-        games: action.payload.slice(0, 15),
+        games: action.payload,
       };
     case GET_GAMES_NAME:
       return {
         ...state,
-        gamesName: action.payload,
+        games: action.payload,
       };
     case GET_GAME_DETAILS:
       return {
@@ -55,6 +58,23 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pages: action.payload,
+      };
+    case REFRESH:
+      return {
+        ...state,
+        gamesName: [],
+        gamesFilter: [],
+        games: [],
+      };
+    case REMOVE_GAME:
+      return {
+        ...state,
+        gameDetail: action.payload,
+      };
+    case GET_ALL_PLATFORMS:
+      return {
+        ...state,
+        platforms: action.payload,
       };
     default: {
       return { ...state };

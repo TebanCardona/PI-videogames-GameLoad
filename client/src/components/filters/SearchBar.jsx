@@ -7,13 +7,15 @@ export default function SearchBar() {
   const handleChange = (e) => {
     setName(e.target.value);
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     dispatch(loading(true));
     await dispatch(getGameName(name));
+    setName("");
     dispatch(loading(false));
   };
   return (
-    <div>
+    <div className="searchbar">
       <form onSubmit={handleSubmit}>
         <input
           type="text"

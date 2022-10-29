@@ -13,7 +13,7 @@ const getAllGames = async (req, res) => {
         return res.status(404).send({ error: "Not found games" });
       res.send(games);
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send([error]);
     }
   } else {
     try {
@@ -21,10 +21,10 @@ const getAllGames = async (req, res) => {
       if (games.length === 0)
         return res
           .status(404)
-          .send({ error: `Not games found wiht this name ${name}` });
+          .send([{ error: `Not games found wiht this name ${name}` }]);
       res.send(games);
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send([error]);
     }
   }
 };

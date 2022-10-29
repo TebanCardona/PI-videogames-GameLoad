@@ -1,5 +1,5 @@
 body {
-  background-color: blanchedalmond;
+  background-color: rgb(69, 119, 64);
 }
 
 .not-load {
@@ -10,6 +10,7 @@ body {
 .cards-all {
   display: grid;
   box-sizing: border-box;
+  background-image: url(https://t3.ftcdn.net/jpg/02/86/08/06/360_F_286080640_oOmrDov9izQLKNus78bsDMMpv1hAANao.jpg);
   grid-template-columns: repeat(auto-fill, minmax(19.4rem, 1fr));
   margin-top: 0.5rem;
   justify-items: center;
