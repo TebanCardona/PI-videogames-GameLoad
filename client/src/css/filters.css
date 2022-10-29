@@ -3,13 +3,19 @@
   justify-content: space-around;
 }
 
+.filter-all {
+  background-color: #124559;
+  padding-bottom: 1em;
+
+}
+
 .text-filters {
-  color: aquamarine;
+  color: #eff6e0;
   font-size: 1.3em;
 }
 
 .title-filters {
-  color: aqua;
+  color: #eff6e0;
   font-size: 1.4em;
 }
 

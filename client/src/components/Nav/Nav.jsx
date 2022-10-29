@@ -38,11 +38,11 @@ export default function Nav() {
         to={"/home"}
         style={{
           textDecoration: "none",
-          color: "aqua",
+          color: "#aec3b0",
         }}
         activeStyle={{
           fontWeight: "bold",
-          color: "orange",
+          color: "#eff6e0",
         }}
       >
         <div className="nav-center">
@@ -54,11 +54,11 @@ export default function Nav() {
         to={"/create"}
         style={{
           textDecoration: "none",
-          color: "aqua",
+          color: "#aec3b0",
         }}
         activeStyle={{
           fontWeight: "bold",
-          color: "orange",
+          color: "#eff6e0",
         }}
       >
         <div className="nav-center">

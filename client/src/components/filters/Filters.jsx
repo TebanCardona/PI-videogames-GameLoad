@@ -26,6 +26,8 @@ export default function Filters() {
   useEffect(() => {
     dispatch(getAllGenres());
     dispatch(getAllPlatforms());
+  }, [dispatch]);
+  useEffect(() => {
     if (!load) {
       var gamesArr = [...games];
       if (filters.created)
@@ -73,6 +75,11 @@ export default function Filters() {
             break;
         }
         gamesArr = gamesArr.sort((a, b) => {
+          if (type === "name") {
+            if (a[type].toLowerCase() > b[type].toLowerCase()) return 1 * value;
+            if (a[type].toLowerCase() < b[type].toLowerCase())
+              return -1 * value;
+          }
           if (a[type] > b[type]) return 1 * value;
           if (a[type] < b[type]) return -1 * value;
           return 0;
@@ -87,7 +94,7 @@ export default function Filters() {
       {" "}
       {load && <></>}
       {!load && (
-        <div>
+        <div className="filter-all">
           <SearchBar />
           <div className="filter">
             <img src={imageFilter} alt="logo filter" className="logo-filter" />

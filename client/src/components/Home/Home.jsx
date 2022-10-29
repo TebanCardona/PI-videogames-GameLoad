@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../redux/actions";
+import store from "../../redux/store";
 import Cards from "../card/Cards.jsx";
 import "../../css/home.css";
 function Home() {
@@ -9,11 +10,14 @@ function Home() {
     async function loadPage() {
       dispatch(actions.loading(true));
       await dispatch(actions.getAllGames());
+      let pageGames = store.getState().games;
+      dispatch(actions.setAllPage(pageGames));
       dispatch(actions.loading(false));
     }
     loadPage();
   }, [dispatch]);
-  let { games, gamesFilter, load } = useSelector((state) => state);
+  let { games, gamesFilter, load, pageGames } = useSelector((state) => state);
+  console.log(pageGames);
   games = gamesFilter;
   return (
     <>

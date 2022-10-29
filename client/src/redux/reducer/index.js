@@ -9,17 +9,20 @@ import {
   REFRESH,
   REMOVE_GAME,
   GET_ALL_PLATFORMS,
+  SET_CURRENT_PAGE,
 } from "../actions/index";
 // Importa las action types acá
 
 const initialState = {
   games: [],
-  gamesFilter: [],
   genres: [],
   platforms: [],
+  pageGames: [],
   gameDetail: {},
+  gamesFilter: [],
+  pages: [],
+  currentPage: 0,
   load: false,
-  pages: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -54,10 +57,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         load: action.payload,
       };
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        page: action.payload,
+      };
     case SET_ALL_PAGE:
       return {
         ...state,
-        pages: action.payload,
+        pageGames: action.payload.gamesArr,
+        pages: action.payload.pages,
+        currentPage: 0,
       };
     case REFRESH:
       return {

@@ -7,6 +7,7 @@ export const FILTERS = "FILTERS";
 export const SET_ALL_PAGE = "SET_ALL_PAGE";
 export const LOADING = "LOADING";
 export const REFRESH = "REFRESH";
+export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const REMOVE_GAME = "REMOVE_GAME";
 export const GET_ALL_PLATFORMS = "GET_ALL_PLATFORMS";
 
@@ -16,14 +17,12 @@ export const getAllGames = () => {
     return dispatch({ type: GET_ALL_GAMES, payload: games.data });
   };
 };
-
 export const getAllGenres = () => {
   return async function (dispatch) {
     let genres = await axios("http://localhost:3001/genres");
     return dispatch({ type: GET_ALL_GENRES, payload: genres.data });
   };
 };
-
 export const getGameName = (name) => {
   return async function (dispatch) {
     try {
@@ -38,7 +37,6 @@ export const getGameName = (name) => {
     }
   };
 };
-
 export const getGameDetail = (id) => {
   return async function (dispatch) {
     let game = await axios(`http://localhost:3001/videogames/${id}`);
@@ -57,10 +55,21 @@ export const loading = (load) => {
     payload: load,
   };
 };
-export const setAllPage = (pages) => {
+export const setAllPage = (games) => {
+  let pages = Math.ceil(games.length / 15);
+  let gamesArr = [];
+  for (let i = 0; i < pages; i++) {
+    gamesArr.push(games.slice(i * 15, (i + 1) * 15));
+  }
   return {
     type: SET_ALL_PAGE,
-    payload: pages,
+    payload: { gamesArr, pages },
+  };
+};
+export const setCurrentPage = (page) => {
+  return {
+    type: SET_CURRENT_PAGE,
+    payload: page,
   };
 };
 export const refresh = () => {

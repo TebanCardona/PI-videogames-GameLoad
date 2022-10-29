@@ -3,6 +3,7 @@
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   justify-content: space-around;
+  background-color: #124559;
 }
 
 .nav-center {
@@ -16,7 +17,7 @@
 }
 
 .title-botton {
-  color: aqua;
+  color: #aec3b0;
   font-size: 1.4em;
 }
 
