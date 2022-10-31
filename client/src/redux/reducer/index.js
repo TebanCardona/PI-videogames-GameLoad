@@ -1,26 +1,28 @@
 import {
-  GET_ALL_GAMES,
-  GET_GAMES_NAME,
-  GET_ALL_GENRES,
-  GET_GAME_DETAILS,
   FILTERS,
-  SET_ALL_PAGE,
   LOADING,
   REFRESH,
+  POST_GAME,
   REMOVE_GAME,
-  GET_ALL_PLATFORMS,
+  SET_ALL_PAGE,
+  GET_ALL_GAMES,
+  GET_ALL_GENRES,
+  GET_GAMES_NAME,
   SET_CURRENT_PAGE,
+  GET_GAME_DETAILS,
+  GET_ALL_PLATFORMS,
 } from "../actions/index";
 // Importa las action types acá
 
 const initialState = {
+  res: {},
+  pages: [],
   games: [],
   genres: [],
   platforms: [],
   pageGames: [],
   gameDetail: {},
   gamesFilter: [],
-  pages: [],
   currentPage: 0,
   load: false,
 };
@@ -31,6 +33,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         games: action.payload,
+      };
+    case POST_GAME:
+      return {
+        ...state,
+        res: action.payload,
       };
     case GET_GAMES_NAME:
       return {
@@ -60,7 +67,7 @@ const rootReducer = (state = initialState, action) => {
     case SET_CURRENT_PAGE:
       return {
         ...state,
-        page: action.payload,
+        currentPage: action.payload,
       };
     case SET_ALL_PAGE:
       return {

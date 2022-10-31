@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loading, getGameName } from "../../redux/actions";
+import { loading, getGameName, setAllPage } from "../../redux/actions";
+import store from "../../redux/store";
 import "../../css/searchbar.css";
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -8,12 +9,17 @@ export default function SearchBar() {
   const handleChange = (e) => {
     setName(e.target.value);
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loading(true));
-    await dispatch(getGameName(name));
+    async function searchPage() {
+      dispatch(loading(true));
+      await dispatch(getGameName(name));
+      let game = store.getState().games;
+      await dispatch(setAllPage(game));
+      dispatch(loading(false));
+    }
+    searchPage();
     setName("");
-    dispatch(loading(false));
   };
   return (
     <div className="searchbar">

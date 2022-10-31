@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllPlatforms, getAllGenres, order } from "../../redux/actions";
+import {
+  getAllPlatforms,
+  getAllGenres,
+  order,
+  setAllPage,
+} from "../../redux/actions";
 import imageFilter from "../../img/filter.png";
 import SearchBar from "./SearchBar";
 import "../../css/filters.css";
@@ -32,7 +37,6 @@ export default function Filters() {
       var gamesArr = [...games];
       if (filters.created)
         gamesArr = gamesArr.filter((game) => game.id.length > 7);
-      if (filters.genre === "Select") dispatch(order(gamesArr));
       if (filters.genre !== "Select") {
         gamesArr = gamesArr.filter((game) => {
           let hasGenre = false;
@@ -42,7 +46,6 @@ export default function Filters() {
           return hasGenre;
         });
       }
-      if (filters.platform === "Select") dispatch(order(gamesArr));
       if (filters.platform !== "Select") {
         gamesArr = gamesArr.filter((game) => {
           let hasplatform = false;
@@ -85,15 +88,17 @@ export default function Filters() {
           return 0;
         });
       }
-      dispatch(order(gamesArr));
+      console.log("juegos filter..", games);
+      if (games.length > 0) dispatch(setAllPage(gamesArr));
     }
-  }, [dispatch, filters, games, load]);
+  }, [filters, load]);
 
   return (
     <>
       {" "}
       {load && <></>}
-      {!load && (
+      {!load && games.length === 1 && <></>}
+      {!load && games.length > 1 && (
         <div className="filter-all">
           <SearchBar />
           <div className="filter">

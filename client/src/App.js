@@ -6,7 +6,6 @@ import Nav from "./components/Nav/Nav";
 import Creategame from "./components/creategame/Creategame";
 import Filters from "./components/filters/Filters";
 import Detail from "./components/card/Detail";
-import Pagination from "./components/pagination/Pagination";
 function App() {
   return (
     <>
@@ -14,7 +13,6 @@ function App() {
       <Route exact path={"/home"}>
         <Nav />
         <Filters />
-        <Pagination />
         <Home />
       </Route>
       <Route exact path={"/create"}>

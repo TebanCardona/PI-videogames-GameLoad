@@ -14,7 +14,6 @@ export default function Nav() {
     back.goBack();
   }
   const handleRefresh = async function () {
-    console.log("hola es el refresh");
     dispatch(loading(true));
     dispatch(refresh());
     await dispatch(getAllGames());
