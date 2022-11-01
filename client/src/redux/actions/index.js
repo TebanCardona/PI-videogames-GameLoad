@@ -109,14 +109,21 @@ export const getAllPlatforms = () => {
   };
 };
 export const postGame = (game) => {
-  return function (dispatch) {
-    axios
-      .post("http://localhost:3001/videogames", game)
-      .then((res) => {
-        return dispatch({ type: POST_GAME, payload: res });
-      })
-      .catch((error) => {
-        return dispatch({ type: POST_GAME, payload: error });
+  return async function (dispatch) {
+    if (game.image === "") delete game.image;
+    if (game.released === "") delete game.released;
+    if (game.rating === "") delete game.rating;
+    game.genres = game.genres.map((e) => e.name);
+    game.platforms = game.platforms.map((e) => e.name);
+    game = JSON.stringify(game);
+    try {
+      const res = await axios.post("http://localhost:3001/videogames", game, {
+        headers: { "Content-Type": "application/json" },
       });
+      dispatch({ type: POST_GAME, payload: res.data });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: POST_GAME, payload: error.response.data });
+    }
   };
 };

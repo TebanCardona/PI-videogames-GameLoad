@@ -44,9 +44,15 @@ const getIdGame = async (req, res) => {
 const postGame = async (req, res) => {
   const { name, image, description, released, rating, genres, platforms } =
     req.body;
+  console.log(req.body);
   try {
-    if (!name || !description || !description || !platforms)
+    if (!name || !description || !genres || !platforms)
       return res.status(404).send({ error: "Send all date require" });
+    let findGame = await Videogame.findOne({ where: { name: name } });
+    if (findGame)
+      return res
+        .status(404)
+        .send({ error: `the game ${name} is already in the database` });
     let newGame = await Videogame.create({
       name,
       image,
