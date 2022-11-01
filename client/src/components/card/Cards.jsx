@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../../css/cards.css";
 const Card = ({ name, image, id, rating, genres, platforms }) => {
   return (
-    <div className="card">
+    <div className="card2">
       <div className="link-card">
         <Link
           to={`/game/${id}`}
@@ -17,15 +17,17 @@ const Card = ({ name, image, id, rating, genres, platforms }) => {
           />
         </Link>
       </div>
-      <h4>Rating: {rating} ⭐</h4>
-      <h5>Genres:</h5>
-      {genres.map((genre) => (
-        <span key={genre}>{genre} | </span>
-      ))}{" "}
-      <h5>Platforms:</h5>
-      {platforms.map((platform) => (
-        <span key={platform}>{platform} | </span>
-      ))}
+      <div className="content-card">
+        <h4>Rating: {rating} ⭐</h4>
+        <h5>Genres:</h5>
+        {genres.map((genre) => (
+          <span key={genre}>{genre} | </span>
+        ))}{" "}
+        <h5>Platforms:</h5>
+        {platforms.map((platform) => (
+          <span key={platform}>{platform} | </span>
+        ))}
+      </div>
     </div>
   );
 };

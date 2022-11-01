@@ -10,14 +10,13 @@ function Home() {
   useEffect(() => {
     async function loadPage() {
       dispatch(actions.loading(true));
-      console.log("cargando juegos.....");
       await dispatch(actions.getAllGames());
       let allGames = store.getState().games;
       dispatch(actions.setAllPage(allGames));
       dispatch(actions.loading(false));
     }
     loadPage();
-  }, []);
+  }, [dispatch]);
   let { load, pageGames, currentPage } = useSelector((state) => state);
   return (
     <>
@@ -52,7 +51,7 @@ function Home() {
           <div className="cards-all">
             {pageGames[currentPage]?.map((game) => {
               return (
-                <div key={game.id}>
+                <div key={game.id} className="card">
                   <Cards
                     name={game.name}
                     image={game.image}

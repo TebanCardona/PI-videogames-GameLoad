@@ -88,7 +88,6 @@ export default function Filters() {
           return 0;
         });
       }
-      console.log("juegos filter..", games);
       if (games.length > 0) dispatch(setAllPage(gamesArr));
     }
   }, [filters, load]);
