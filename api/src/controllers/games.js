@@ -44,7 +44,6 @@ const getIdGame = async (req, res) => {
 const postGame = async (req, res) => {
   const { name, image, description, released, rating, genres, platforms } =
     req.body;
-  console.log(req.body);
   try {
     if (!name || !description || !genres || !platforms)
       return res.status(404).send({ error: "Send all date require" });

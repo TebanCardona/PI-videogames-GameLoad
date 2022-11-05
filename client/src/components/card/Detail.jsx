@@ -18,7 +18,6 @@ export default function Detail() {
     };
   }, [dispatch, id]);
   let { gameDetail, load } = useSelector((state) => state);
-
   return (
     <div className="detail">
       {load && (
@@ -41,13 +40,20 @@ export default function Detail() {
             <img
               src={gameDetail.image}
               alt={gameDetail.name}
-              style={{ width: "600px", borderRadius: "1em" }}
+              style={{
+                width: "600px",
+                maxHeight: "300px",
+                borderRadius: "1em",
+              }}
             />
           </div>
           <div className="detail-text">
+            <h2>Description: </h2>
             <div
               dangerouslySetInnerHTML={{ __html: gameDetail.description }}
             ></div>
+            <br />
+            <br />
             <span className="title-detail">
               {" "}
               <b> Rating: </b>{" "}

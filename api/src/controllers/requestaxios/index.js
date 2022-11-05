@@ -6,14 +6,14 @@ const get = {
   params: { key: apikey },
 };
 const platform = new Set();
-const saveInfo = function (game) {
+const OrganizeInfo = function (game) {
   return {
     id: game.id,
     name: game.name,
     image: game.background_image,
     rating: game.rating,
     released: game.released,
-    description: game.description,
+    description: game?.description,
     genres: game.genres.map((genre) => genre.name),
     platforms: game.platforms.map((p) => {
       platform.add(p.platform.name);
@@ -30,20 +30,21 @@ const gamesApi = async () => {
     for (let i = 0; i < 5; i++) {
       let gamesData = await axios.request(get);
       gamesData.data.results.forEach((game) => {
-        data.push({
-          id: game.id,
-          name: game.name,
-          rating: game.rating,
-          released: game.released,
-          image: game.background_image,
-          genres: game.genres.map((genre) => genre.name),
-          platforms: game.platforms.map((p) => {
-            platform.add(p.platform.name);
-            return p.platform.name;
-          }),
-        });
-        get.url = gamesData.data.next;
+        data.push(OrganizeInfo(game));
+        // data.push({
+        //   id: game.id,
+        //   name: game.name,
+        //   rating: game.rating,
+        //   released: game.released,
+        //   image: game.background_image,
+        //   genres: game.genres.map((genre) => genre.name),
+        //   platforms: game.platforms.map((p) => {
+        //     platform.add(p.platform.name);
+        //     return p.platform.name;
+        //   }),
+        // });
       });
+      get.url = gamesData.data.next;
     }
     return data;
   } catch (error) {
@@ -58,7 +59,7 @@ const gamesNameApi = async function (name) {
   try {
     const games = await axios.request(get);
     games.data.results.splice(0, 11).forEach((game) => {
-      dataGames.push(saveInfo(game));
+      dataGames.push(OrganizeInfo(game));
     });
     return dataGames;
   } catch (error) {
@@ -70,7 +71,7 @@ const gameIdApi = async (id) => {
   try {
     get.url = `https://api.rawg.io/api/games/${id}`;
     const game = await axios.request(get);
-    const dataGame = saveInfo(game.data);
+    const dataGame = OrganizeInfo(game.data);
     return dataGame;
   } catch (error) {
     console.error(error);

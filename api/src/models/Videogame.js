@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       },
       description: {
         type: DataTypes.TEXT,
-        defaultValue: "This doesn`t have description ",
+        defaultValue: "It doesn`t have description ",
         allowNull: false,
       },
       released: {

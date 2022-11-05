@@ -1,5 +1,16 @@
 const { Videogame, Genre } = require("../../db");
-
+const OrganizeInfo = (game) => {
+  return {
+    id: game.id,
+    name: game.name,
+    image: game.image,
+    rating: game.rating,
+    released: game.released,
+    description: game.description,
+    genres: game.genres.map((genre) => genre.name),
+    platforms: game.platforms,
+  };
+};
 const gamesDb = async function () {
   try {
     const gamesDb = await Videogame.findAll({
@@ -12,23 +23,13 @@ const gamesDb = async function () {
       },
     });
     let dataGames = gamesDb.map((game) => {
-      return {
-        id: game.id,
-        name: game.name,
-        image: game.image,
-        rating: game.rating,
-        released: game.released,
-        description: game.description,
-        genres: game.genres.map((genre) => genre.name),
-        platforms: game.platforms,
-      };
+      return OrganizeInfo(game);
     });
     return dataGames;
   } catch (error) {
     console.error(error);
   }
 };
-
 const gamesNameDb = async (query) => {
   const games = await gamesDb();
   if (games.length > 0)
@@ -37,11 +38,19 @@ const gamesNameDb = async (query) => {
     });
   return [];
 };
-
 const gameIdBd = async (id) => {
   try {
-    const game = await Videogame.findByPk(id);
-    return game;
+    const game = await Videogame.findByPk(id, {
+      include: {
+        model: Genre,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+
+    return OrganizeInfo(game);
   } catch (error) {
     return "Not found.";
   }

@@ -162,7 +162,7 @@ const Creategame = () => {
         </label>
         <div className="form">
           <input
-            type={"number"}
+            type={"float"}
             min={1}
             max={5}
             className="input"
