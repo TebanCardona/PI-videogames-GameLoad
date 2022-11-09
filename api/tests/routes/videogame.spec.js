@@ -1,56 +1,54 @@
-/* eslint-disable import/no-extraneous-dependencies */
+const request = require("supertest");
 const { expect } = require("chai");
-const session = require("supertest-session");
-const { request } = require("../../src/app.js");
 const app = require("../../src/app.js");
+const session = require("supertest-session");
 const { Videogame, conn } = require("../../src/db.js");
 
 const agent = session(app);
 const videogame = {
   name: "Super Mario Bros",
+  description: "asd",
+  platforms: [],
 };
-
-xdescribe("Videogame routes", () => {
-  // before(() =>
-  //   conn.authenticate().catch((err) => {
-  //     console.error("Unable to connect to the database:", err);
-  //   })
-  // );
-  // beforeEach(() =>
-  //   Videogame.sync({ force: true }).then(() => Videogame.create(videogame))
-  // );
+describe("Videogame routes", () => {
+  before(() =>
+    conn.authenticate().catch((err) => {
+      console.error("Unable to connect to the database:", err);
+    })
+  );
+  beforeEach(() =>
+    Videogame.sync({ force: true }).then(() => Videogame.create(videogame))
+  );
   describe("GET /videogames", () => {
-    it("should get 200", () =>
-      request(app)
-        .get("/videogames")
-        .expect("Content-Type", /json/)
-        .expect(200, {}, done));
+    it("/Get. Should 200 or 201", (done) => {
+      agent.get("/videogames").expect(200).end(done());
+    });
+    it("/Post. Should 201 when all info have", (done) => {
+      agent
+        .post("/videogames")
+        .send({
+          name: "asd",
+          description: "pa tu pa",
+          platforms: ["asd"],
+          genres: ["qhubo pa"],
+        })
+        .expect(201)
+        .end(done());
+    });
+    it("/Post. Should 404 when nothing info have ", (done) => {
+      agent.post("/videogames").send({}).expect(404).end(done());
+    });
   });
 });
 
-// describe("Routes of Videogames", () => {
-//   describe("GET /videogames", () => {
-//     it("Responds with 200", () => agent.get("/videogames").expect(200));
-//   });
-// });
-// describe("Post /videogame", () => {
-//   it("Should be status 200", () =>
-//     agent
-//       .post("/videogame")
-//       .send({
-//         name: "asd",
-//         image: "asd",
-//         description: "asdasdaasd",
-//         rating: 1.5,
-//         genres: ["Action", "Adventure", "RPG"],
-//         platforms: [
-//           "Nintendo Switch",
-//           "PlayStation 5",
-//           "Xbox Series S/X",
-//           "Xbox One",
-//           "PC",
-//           "PlayStation 4",
-//         ],
-//       })
-//       .expect(200));
-// });
+describe("Routes Genres", () => {
+  it("Should 200 get", (done) => {
+    agent.get("/genres").expect(200).end(done());
+  });
+});
+
+describe("Routes Platforms", () => {
+  it("Should 200 get", () => {
+    agent.get("/platforms").expect(200).end(done());
+  });
+});

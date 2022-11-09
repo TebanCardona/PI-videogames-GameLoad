@@ -7,6 +7,7 @@ import Creategame from "./components/creategame/Creategame";
 import Filters from "./components/filters/Filters";
 import Detail from "./components/card/Detail";
 import Page404 from "./components/page404/Page404";
+import Footer from "./components/footer/Footer";
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
           <Nav />
           <Filters />
           <Home />
+          <Footer />
         </Route>
         <Route exact path={"/create"}>
           <Nav />
