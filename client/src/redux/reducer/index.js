@@ -4,6 +4,7 @@ import {
   REFRESH,
   POST_GAME,
   REMOVE_GAME,
+  REMOVE_MESSAGE,
   SET_ALL_PAGE,
   GET_ALL_GAMES,
   GET_ALL_GENRES,
@@ -92,6 +93,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         platforms: action.payload,
+      };
+    case REMOVE_MESSAGE:
+      return {
+        ...state,
+        res: action.payload,
       };
     default: {
       return { ...state };

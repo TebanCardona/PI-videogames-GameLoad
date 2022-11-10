@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllGenres, getAllPlatforms, postGame } from "../../redux/actions";
+import {
+  getAllGenres,
+  getAllPlatforms,
+  postGame,
+  removeMsg,
+} from "../../redux/actions";
 import Genres from "./Genres.jsx";
 import Platforms from "./Platforms";
 import "../../css/creategame.css";
@@ -9,6 +14,9 @@ const Creategame = () => {
   useEffect(() => {
     dispatch(getAllGenres());
     dispatch(getAllPlatforms());
+    return () => {
+      dispatch(removeMsg());
+    };
   }, [dispatch]);
   const { genres, platforms, res } = useSelector((state) => state);
   const [errors, setErrors] = useState({
@@ -34,9 +42,7 @@ const Creategame = () => {
     }
     if (
       !(state.image.length === 0) &&
-      !/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(
-        state.image
-      )
+      !/^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(state.image)
     ) {
       errors.image = "Image URL is not valid";
       errors.globalError = true;
@@ -118,6 +124,7 @@ const Creategame = () => {
       });
     }
   };
+
   return (
     <div className="div-form">
       {res?.message && <p>{res.message}</p>}

@@ -4,6 +4,7 @@ export const LOADING = "LOADING";
 export const REFRESH = "REFRESH";
 export const POST_GAME = "POST_GAME";
 export const REMOVE_GAME = "REMOVE_GAME";
+export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
 export const SET_ALL_PAGE = "SET_ALL_PAGE";
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
 export const GET_ALL_GENRES = "GET_ALL_GENRES";
@@ -105,5 +106,11 @@ export const postGame = (game) => {
     } catch (error) {
       dispatch({ type: POST_GAME, payload: error.response.data });
     }
+  };
+};
+export const removeMsg = () => {
+  return {
+    type: REMOVE_MESSAGE,
+    payload: "",
   };
 };

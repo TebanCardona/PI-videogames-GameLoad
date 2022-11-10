@@ -31,18 +31,6 @@ const gamesApi = async () => {
       let gamesData = await axios.request(get);
       gamesData.data.results.forEach((game) => {
         data.push(OrganizeInfo(game));
-        // data.push({
-        //   id: game.id,
-        //   name: game.name,
-        //   rating: game.rating,
-        //   released: game.released,
-        //   image: game.background_image,
-        //   genres: game.genres.map((genre) => genre.name),
-        //   platforms: game.platforms.map((p) => {
-        //     platform.add(p.platform.name);
-        //     return p.platform.name;
-        //   }),
-        // });
       });
       get.url = gamesData.data.next;
     }
