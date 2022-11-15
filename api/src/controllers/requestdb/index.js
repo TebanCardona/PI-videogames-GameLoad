@@ -1,4 +1,4 @@
-const { Videogame, Genre } = require("../../db");
+const { Videogame, Genre, Fav } = require("../../db");
 const OrganizeInfo = (game) => {
   return {
     id: game.id,
@@ -10,6 +10,22 @@ const OrganizeInfo = (game) => {
     genres: game.genres.map((genre) => genre.name),
     platforms: game.platforms,
   };
+};
+const favDb = async function () {
+  try {
+    const fav = await Fav.findAll({
+      include: {
+        model: Videogame,
+        attributes: ["name", "id", "image"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+    return fav;
+  } catch (error) {
+    console.error(error);
+  }
 };
 const gamesDb = async function () {
   try {
@@ -70,4 +86,5 @@ module.exports = {
   getGenresDb,
   gameIdBd,
   gamesNameDb,
+  favDb,
 };

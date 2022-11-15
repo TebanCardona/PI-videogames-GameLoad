@@ -6,7 +6,6 @@ const {
 } = require("./requestaxios");
 const { gamesDb, getGenresDb, gamesNameDb } = require("./requestdb");
 const { Genre } = require("../db");
-
 const saveGenresGet = async function () {
   try {
     let dataGenresDb = await getGenresDb();

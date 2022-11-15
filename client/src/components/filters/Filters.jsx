@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAllPlatforms,
-  getAllGenres,
-  order,
-  setAllPage,
-} from "../../redux/actions";
+import { getAllPlatforms, getAllGenres, setAllPage } from "../../redux/actions";
 import imageFilter from "../../img/filter.png";
 import SearchBar from "./SearchBar";
 import "../../css/filters.css";

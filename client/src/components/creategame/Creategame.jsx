@@ -146,6 +146,14 @@ const Creategame = () => {
           />
           <span className="input-border"></span>
         </div>
+        <label className="text-form">
+          <b>Like</b>
+          <select name="like" id="like" onChange={handleChange}>
+            <option value="Select">Select</option>
+            <option value={"yes"}>yes</option>
+            <option value={"no"}>no</option>
+          </select>
+        </label>
         {errors.name && <p className="error">{errors.name}</p>}
         <label className="text-form">
           <b>Image: </b>

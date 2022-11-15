@@ -18,6 +18,7 @@ export default function Detail() {
     };
   }, [dispatch, id]);
   let { gameDetail, load } = useSelector((state) => state);
+  console.log(gameDetail.like);
   return (
     <div className="detail">
       {load && (
@@ -82,6 +83,8 @@ export default function Detail() {
             {gameDetail.platforms?.map((platform) => (
               <span key={platform}>{platform} </span>
             ))}
+            <b>Like </b>
+            {gameDetail.like}
           </div>
         </div>
       )}

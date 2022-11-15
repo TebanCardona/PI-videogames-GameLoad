@@ -1,10 +1,9 @@
 const { favDb } = require("./requestdb");
 
 const getFav = async function (req, res) {
-  const dataFav = favDb()
+  const dataFav = favDb();
   if (dataFav) {
-    
   }
 };
 
-module.exports = {getFav,};
+module.exports = { getFav };

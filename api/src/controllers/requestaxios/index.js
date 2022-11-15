@@ -89,5 +89,4 @@ const platformApi = async () => {
     console.error(error);
   }
 };
-
 module.exports = { gamesApi, gamesNameApi, gameIdApi, genresApi, platformApi };
