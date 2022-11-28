@@ -83,8 +83,6 @@ export default function Detail() {
             {gameDetail.platforms?.map((platform) => (
               <span key={platform}>{platform} </span>
             ))}
-            <b>Like </b>
-            {gameDetail.like}
           </div>
         </div>
       )}

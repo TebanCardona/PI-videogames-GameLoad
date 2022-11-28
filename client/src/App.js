@@ -8,6 +8,7 @@ import Filters from "./components/filters/Filters";
 import Detail from "./components/card/Detail";
 import Page404 from "./components/page404/Page404";
 import Footer from "./components/footer/Footer";
+import Fav from "./components/fav/Fav";
 function App() {
   return (
     <>
@@ -26,6 +27,10 @@ function App() {
         <Route exact path={"/game/:id"}>
           <Nav />
           <Detail />
+        </Route>
+        <Route exact path={"/fav"}>
+          <Nav />
+          <Fav />
         </Route>
         <Route exact path={"*"}>
           <Page404 />

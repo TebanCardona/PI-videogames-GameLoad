@@ -1,12 +1,14 @@
 import axios from "axios";
+export const ADD_FAV = "ADD_FAV"
 export const FILTERS = "FILTERS";
 export const LOADING = "LOADING";
 export const REFRESH = "REFRESH";
 export const POST_GAME = "POST_GAME";
+export const REMOVE_FAV = "REMOVE_FAV"
 export const REMOVE_GAME = "REMOVE_GAME";
-export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
 export const SET_ALL_PAGE = "SET_ALL_PAGE";
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
+export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
 export const GET_ALL_GENRES = "GET_ALL_GENRES";
 export const GET_GAMES_NAME = "GET_GAMES_NAME";
 export const GET_GAME_DETAILS = "GET_GAME_DETAILS";
@@ -114,3 +116,15 @@ export const removeMsg = () => {
     payload: "",
   };
 };
+export const addFav = (game) => {
+  return {
+    type: ADD_FAV,
+    payload: game
+  }
+}
+export const removeFav = (id) => {
+  return {
+    type: REMOVE_FAV,
+    payload: id
+  }
+}

@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const games = require("./videogames.js");
 const genres = require("./genres.js");
-const platforms = require("./platforms.js");
+const platforms = require("./platforms.js");;
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -12,6 +12,4 @@ const router = Router();
 router.use("/videogames", games);
 router.use("/genres", genres);
 router.use("/platforms", platforms);
-router.use("/fav");
-
 module.exports = router;

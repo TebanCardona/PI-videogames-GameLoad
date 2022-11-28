@@ -1,7 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addFav } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import "../../css/cards.css";
 const Card = ({ name, image, id, rating, genres, platforms }) => {
+  const dispatch = useDispatch();
+  const handleFav = () => {
+    dispatch(addFav([{ name, image, id }]));
+  };
   return (
     <div className="card2">
       <div className="link-card">
@@ -16,6 +22,11 @@ const Card = ({ name, image, id, rating, genres, platforms }) => {
             style={{ width: "280px", borderRadius: "1em" }}
           />
         </Link>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button style={{ height: "20px" }} onClick={handleFav}>
+          Fav
+        </button>
       </div>
       <div className="content-card">
         <h4>Rating: {rating} ⭐</h4>

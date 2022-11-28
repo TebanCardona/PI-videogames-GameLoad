@@ -1,0 +1,35 @@
+.content-Fav {
+  color: rgb(233, 230, 230);
+  height: 79.5vh;
+  border: 1em
+}
+
+.text-img {
+  display: flex;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.content-Fav h1 {
+  text-align: center;
+}
+
+.content-Fav img {
+
+  cursor: pointer;
+}
+
+.fav-game {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: repeat(auto-fill, minmax(19.4rem, 1fr));
+  margin-top: 0.5rem;
+  justify-items: center;
+  color: white;
+  background-color: #096f97;
+  padding: 1em;
+  margin: 1em;
+  border-radius: 1em;
+}

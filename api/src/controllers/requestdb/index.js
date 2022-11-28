@@ -1,4 +1,4 @@
-const { Videogame, Genre, Fav } = require("../../db");
+const { Videogame, Genre, } = require("../../db");
 const OrganizeInfo = (game) => {
   return {
     id: game.id,
@@ -80,6 +80,11 @@ const getGenresDb = async function () {
     console.error(error);
   }
 };
+const postUserDB = async (name, password) => {
+  console.log(name, password);
+  const user = await User.create({ name, password })
+  return user
+}
 
 module.exports = {
   gamesDb,
@@ -87,4 +92,5 @@ module.exports = {
   gameIdBd,
   gamesNameDb,
   favDb,
+  postUserDB,
 };

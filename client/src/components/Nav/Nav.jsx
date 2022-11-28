@@ -6,6 +6,7 @@ import joystick from "../../img/joystick.png";
 import create from "../../img/create.png";
 import arrow from "../../img/back.png";
 import refreshLogo from "../../img/refresh1.png";
+import fav from "../../img/fav.png";
 import "../../css/nav.css";
 export default function Nav() {
   const dispatch = useDispatch();
@@ -47,6 +48,22 @@ export default function Nav() {
         <div className="nav-center">
           <span className="title">Game Load</span>
           <img src={joystick} alt="Logo" className="logo" />
+        </div>
+      </NavLink>
+      <NavLink
+        to={"/fav"}
+        style={{
+          textDecoration: "none",
+          color: "#aec3b0",
+        }}
+        activeStyle={{
+          fontWeight: "bold",
+          color: "#eff6e0",
+        }}
+      >
+        <div className="nav-center">
+          <span className="title"> Favorites</span>
+          <img src={fav} alt="Logo Fav" className="logo" />
         </div>
       </NavLink>
       <NavLink

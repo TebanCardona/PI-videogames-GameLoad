@@ -1,4 +1,5 @@
 import {
+  ADD_FAV,
   FILTERS,
   LOADING,
   REFRESH,
@@ -12,10 +13,12 @@ import {
   SET_CURRENT_PAGE,
   GET_GAME_DETAILS,
   GET_ALL_PLATFORMS,
+  REMOVE_FAV,
 } from "../actions/index";
 // Importa las action types acá
 
 const initialState = {
+  fav: [],
   res: {},
   pages: [],
   games: [],
@@ -99,6 +102,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         res: action.payload,
       };
+    case ADD_FAV:
+      if (state.fav.find(el => el.id === action.payload[0].id)) return { ...state }
+      return {
+        ...state,
+        fav: [...state.fav, ...action.payload]
+      }
+    case REMOVE_FAV:
+      return {
+        ...state,
+        fav: state.fav.filter(el => el.id !== action.payload)
+      }
     default: {
       return { ...state };
     }
