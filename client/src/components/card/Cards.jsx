@@ -3,8 +3,9 @@ import { useDispatch } from "react-redux";
 import { addFav } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import "../../css/cards.css";
-const Card = ({ name, image, id, rating, genres, platforms }) => {
+function Card({ name, image, id, rating, genres, platforms }) {
   const dispatch = useDispatch();
+  const star = "⭐";
   const handleFav = () => {
     dispatch(addFav([{ name, image, id }]));
   };
@@ -19,7 +20,7 @@ const Card = ({ name, image, id, rating, genres, platforms }) => {
           <img
             src={image}
             alt={name}
-            style={{ width: "280px", borderRadius: "1em" }}
+            style={{ width: "280px", borderRadius: "1em", maxHeight: "200px" }}
           />
         </Link>
       </div>
@@ -29,7 +30,9 @@ const Card = ({ name, image, id, rating, genres, platforms }) => {
         </button>
       </div>
       <div className="content-card">
-        <h4>Rating: {rating} ⭐</h4>
+        <h4>
+          Rating: {rating} {star.repeat(Number(rating))}
+        </h4>
         <h5>Genres:</h5>
         {genres.map((genre) => (
           <span key={genre}>{genre} | </span>
@@ -41,5 +44,5 @@ const Card = ({ name, image, id, rating, genres, platforms }) => {
       </div>
     </div>
   );
-};
+}
 export default Card;

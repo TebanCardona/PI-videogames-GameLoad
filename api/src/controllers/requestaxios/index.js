@@ -27,7 +27,7 @@ const gamesApi = async () => {
   get.url = "https://api.rawg.io/api/games";
   if (get.params.search) delete get.params.search;
   try {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 2; i++) {
       let gamesData = await axios.request(get);
       gamesData.data.results.forEach((game) => {
         data.push(OrganizeInfo(game));
