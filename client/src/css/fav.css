@@ -21,10 +21,14 @@
   cursor: pointer;
 }
 
-.fav-game {
+
+.favs {
   display: grid;
   box-sizing: border-box;
   grid-template-columns: repeat(auto-fill, minmax(19.4rem, 1fr));
+}
+
+.fav-area {
   margin-top: 0.5rem;
   justify-items: center;
   color: white;
@@ -32,4 +36,5 @@
   padding: 1em;
   margin: 1em;
   border-radius: 1em;
+
 }

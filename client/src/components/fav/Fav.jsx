@@ -14,25 +14,31 @@ export default function Fav() {
   return (
     <div className="content-Fav">
       <h1>Your Favorites</h1>
-      <div className="fav-game">
-        {fav?.map((e) => (
-          <div key={e.name}>
-            <div className="text-img">
-              <img
-                src={close}
-                className={"logo"}
-                alt="Close"
-                onClick={() => handleRemove(e.id)}
-              />
-              <h3>{e.name}</h3>
-            </div>
-            <img
-              src={e.image}
-              alt={e.name}
-              style={{ width: "17em", borderRadius: "1em", height: "10em" }}
-            />
+      <div className="fav-area">
+        {fav[0] ? (
+          <div className="favs">
+            {fav.map((e) => (
+              <div key={e.name}>
+                <div className="text-img">
+                  <img
+                    src={close}
+                    className={"logo"}
+                    alt="Close"
+                    onClick={() => handleRemove(e.id)}
+                  />
+                  <h3>{e.name}</h3>
+                </div>
+                <img
+                  src={e.image}
+                  alt={e.name}
+                  style={{ width: "17em", borderRadius: "1em", height: "10em" }}
+                />
+              </div>
+            ))}
           </div>
-        ))}
+        ) : (
+          <h3 style={{ textAlign: "center" }}>No Favorites</h3>
+        )}
       </div>
     </div>
   );
