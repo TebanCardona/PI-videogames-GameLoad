@@ -4,10 +4,7 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 console.log(DATABASE_URL);
-const sequelize = new Sequelize(DATABASE_URL, {
-  logging: false, // set to console.log to see the raw SQL queries
-  native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-});
+const sequelize = new Sequelize(DATABASE_URL);
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
