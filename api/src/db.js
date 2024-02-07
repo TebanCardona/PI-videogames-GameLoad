@@ -4,7 +4,6 @@ const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 console.log(DATABASE_URL);
-const sequelize = new Sequelize(DATABASE_URL);
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -27,6 +26,7 @@ let capsEntries = entries.map((entry) => [
   entry[0][0].toUpperCase() + entry[0].slice(1),
   entry[1],
 ]);
+const sequelize = new Sequelize(DATABASE_URL);
 sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
