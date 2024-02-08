@@ -1,6 +1,5 @@
 import axios from "axios";
 export const ADD_FAV = "ADD_FAV";
-export const SET_FAV = "SET_FAV";
 export const FILTERS = "FILTERS";
 export const LOADING = "LOADING";
 export const REFRESH = "REFRESH";
@@ -135,20 +134,5 @@ export const removeFav = (game) => {
   return {
     type: REMOVE_FAV,
     payload: game.id,
-  };
-};
-
-export const setFav = (games, gamesFav) => {
-  games.map((game) => {
-    gamesFav.forEach((gameFav) => {
-      if (game.id === gameFav.id) {
-        game.fav = gameFav.fav;
-      }
-    });
-    return game;
-  });
-  return {
-    type: SET_FAV,
-    payload: games,
   };
 };

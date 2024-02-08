@@ -24,7 +24,7 @@ export default function Fav() {
                     src={close}
                     className={"logo"}
                     alt="Close"
-                    onClick={() => handleRemove(e.id, e.fav)}
+                    onClick={() => handleRemove(e)}
                   />
                   <h3>{e.name}</h3>
                 </div>

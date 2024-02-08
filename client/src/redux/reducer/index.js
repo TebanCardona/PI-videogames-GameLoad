@@ -14,7 +14,7 @@ import {
   GET_GAME_DETAILS,
   GET_ALL_PLATFORMS,
   REMOVE_FAV,
-  SET_FAV,
+
 } from "../actions/index";
 // Importa las action types acá
 
@@ -115,11 +115,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         fav: state.fav.filter((el) => el.id !== action.payload),
       };
-    case SET_FAV:
-      return {
-        ...state,
-        games: action.payload,
-      };
+
     default: {
       return { ...state };
     }
