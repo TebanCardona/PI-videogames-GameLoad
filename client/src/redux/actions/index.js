@@ -1,10 +1,11 @@
 import axios from "axios";
-export const ADD_FAV = "ADD_FAV"
+export const ADD_FAV = "ADD_FAV";
+export const SET_FAV = "SET_FAV";
 export const FILTERS = "FILTERS";
 export const LOADING = "LOADING";
 export const REFRESH = "REFRESH";
 export const POST_GAME = "POST_GAME";
-export const REMOVE_FAV = "REMOVE_FAV"
+export const REMOVE_FAV = "REMOVE_FAV";
 export const REMOVE_GAME = "REMOVE_GAME";
 export const SET_ALL_PAGE = "SET_ALL_PAGE";
 export const GET_ALL_GAMES = "GET_ALL_GAMES";
@@ -14,23 +15,30 @@ export const GET_GAMES_NAME = "GET_GAMES_NAME";
 export const GET_GAME_DETAILS = "GET_GAME_DETAILS";
 export const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const GET_ALL_PLATFORMS = "GET_ALL_PLATFORMS";
+const URL = process.env.REACT_APP_URL || "http://localhost:3001";
 
-export const getAllGames = () => {
-  return async function (dispatch) {
-    let games = await axios("http://localhost:3001/videogames");
-    return dispatch({ type: GET_ALL_GAMES, payload: games.data });
-  };
+export const getAllGames = (games) => {
+  if (games) {
+    return function (dispatch) {
+      return dispatch({ type: GET_ALL_GAMES, payload: games });
+    };
+  } else {
+    return async function (dispatch) {
+      let games = await axios(URL + "videogames");
+      return dispatch({ type: GET_ALL_GAMES, payload: games.data });
+    };
+  }
 };
 export const getAllGenres = () => {
   return async function (dispatch) {
-    let genres = await axios("http://localhost:3001/genres");
+    let genres = await axios(URL + "genres");
     return dispatch({ type: GET_ALL_GENRES, payload: genres.data });
   };
 };
 export const getGameName = (name) => {
   return async function (dispatch) {
     try {
-      let games = await axios(`http://localhost:3001/videogames?name=${name}`);
+      let games = await axios(URL + `videogames?name=${name}`);
       return dispatch({
         type: GET_GAMES_NAME,
         payload: games.data.slice(0, 15),
@@ -42,7 +50,7 @@ export const getGameName = (name) => {
 };
 export const getGameDetail = (id) => {
   return async function (dispatch) {
-    let game = await axios(`http://localhost:3001/videogames/${id}`);
+    let game = await axios(URL + `videogames/${id}`);
     return dispatch({ type: GET_GAME_DETAILS, payload: game.data });
   };
 };
@@ -88,7 +96,7 @@ export const removeGame = () => {
 };
 export const getAllPlatforms = () => {
   return async function (dispatch) {
-    let platforms = await axios("http://localhost:3001/platforms");
+    let platforms = await axios(URL + "platforms");
     return dispatch({ type: GET_ALL_PLATFORMS, payload: platforms.data });
   };
 };
@@ -101,7 +109,7 @@ export const postGame = (game) => {
     game.platforms = game.platforms.map((e) => e.name);
     game = JSON.stringify(game);
     try {
-      const res = await axios.post("http://localhost:3001/videogames", game, {
+      const res = await axios.post(URL + "videogames", game, {
         headers: { "Content-Type": "application/json" },
       });
       dispatch({ type: POST_GAME, payload: res.data });
@@ -119,12 +127,28 @@ export const removeMsg = () => {
 export const addFav = (game) => {
   return {
     type: ADD_FAV,
-    payload: game
-  }
-}
-export const removeFav = (id) => {
+    payload: game,
+  };
+};
+export const removeFav = (game) => {
+  game.fav = !game.fav;
   return {
     type: REMOVE_FAV,
-    payload: id
-  }
-}
+    payload: game.id,
+  };
+};
+
+export const setFav = (games, gamesFav) => {
+  games.map((game) => {
+    gamesFav.forEach((gameFav) => {
+      if (game.id === gameFav.id) {
+        game.fav = gameFav.fav;
+      }
+    });
+    return game;
+  });
+  return {
+    type: SET_FAV,
+    payload: games,
+  };
+};

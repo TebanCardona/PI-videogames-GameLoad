@@ -7,10 +7,14 @@ import Pagination from "../pagination/Pagination";
 import "../../css/home.css";
 function Home() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     async function loadPage() {
       dispatch(actions.loading(true));
       await dispatch(actions.getAllGames());
+      await dispatch(
+        actions.setFav(store.getState().games, store.getState().fav)
+      );
       let allGames = store.getState().games;
       dispatch(actions.setAllPage(allGames));
       dispatch(actions.loading(false));

@@ -19,6 +19,7 @@ const OrganizeInfo = function (game) {
       platform.add(p.platform.name);
       return p.platform.name;
     }),
+    fav: false,
   };
 };
 

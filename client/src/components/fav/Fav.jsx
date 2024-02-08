@@ -7,8 +7,8 @@ import "../../css/fav.css";
 export default function Fav() {
   let fav = useSelector((state) => state.fav);
   const dispatch = useDispatch();
-  const handleRemove = (id) => {
-    dispatch(removeFav(id));
+  const handleRemove = (game) => {
+    dispatch(removeFav(game));
     fav = store.getState().fav;
   };
   return (
@@ -24,7 +24,7 @@ export default function Fav() {
                     src={close}
                     className={"logo"}
                     alt="Close"
-                    onClick={() => handleRemove(e.id)}
+                    onClick={() => handleRemove(e.id, e.fav)}
                   />
                   <h3>{e.name}</h3>
                 </div>

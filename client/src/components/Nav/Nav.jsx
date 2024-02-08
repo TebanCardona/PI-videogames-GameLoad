@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import { loading, refresh, getAllGames } from "../../redux/actions";
 import joystick from "../../img/joystick.png";
 import create from "../../img/create.png";
-import arrow from "../../img/back.png";
+import arrow from "../../img/return.svg";
 import refreshLogo from "../../img/refresh1.png";
-import fav from "../../img/fav.png";
+import fav from "../../img/fav.svg";
 import "../../css/nav.css";
 export default function Nav() {
   const dispatch = useDispatch();

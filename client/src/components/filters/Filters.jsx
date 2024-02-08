@@ -85,6 +85,7 @@ export default function Filters() {
       }
       if (games.length > 0) dispatch(setAllPage(gamesArr));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, load]);
 
   return (
