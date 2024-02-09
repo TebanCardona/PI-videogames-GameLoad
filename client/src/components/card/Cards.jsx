@@ -8,12 +8,14 @@ function Card({ name, image, id, rating, genres, platforms, fav }) {
   const [favAnimate, setFavAnimate] = useState(fav || false);
   const star = "⭐";
   const handleFav = () => {
-    const fav = !favAnimate;
-    setFavAnimate(fav);
+    const favA = !favAnimate;
+    setFavAnimate(favA);
 
-    if (fav) {
+    if (favA) {
+      fav = true;
       dispatch(addFav([{ name, image, id, fav }]));
     } else {
+      fav = false;
       dispatch(removeFav({ name, id, fav }));
     }
   };

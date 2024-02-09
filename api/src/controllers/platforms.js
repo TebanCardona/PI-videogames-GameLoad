@@ -3,12 +3,12 @@ const getAllPlatforms = async (req, res) => {
   try {
     const platforms = await PlatformsGet();
     if (platforms.length === 0)
-      return res.status(400).send({ error: "Not platforms found" });
-    return res.send(platforms);
+      res.status(400).send({ error: "Not platforms found" });
+    res.send(platforms);
   } catch (error) {
-    return res.status(400).send(error);
+    res.status(400).send(error);
   } finally {
-    await conn.close();
+    return await conn.close();
   }
 };
 module.exports = {

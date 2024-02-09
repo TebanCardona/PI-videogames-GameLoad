@@ -130,7 +130,6 @@ export const addFav = (game) => {
   };
 };
 export const removeFav = (game) => {
-  game.fav = !game.fav;
   return {
     type: REMOVE_FAV,
     payload: game.id,

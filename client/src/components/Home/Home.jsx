@@ -7,16 +7,20 @@ import Pagination from "../pagination/Pagination";
 import "../../css/home.css";
 function Home() {
   const dispatch = useDispatch();
-
+  let games = store.getState().games;
+  console.log(games[3]);
   useEffect(() => {
     async function loadPage() {
       dispatch(actions.loading(true));
-      await dispatch(actions.getAllGames());
+      if (!games[0]) {
+        await dispatch(actions.getAllGames());
+      }
       let allGames = store.getState().games;
       dispatch(actions.setAllPage(allGames));
       dispatch(actions.loading(false));
     }
     loadPage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
   let { load, pageGames, currentPage } = useSelector((state) => state);
   return (

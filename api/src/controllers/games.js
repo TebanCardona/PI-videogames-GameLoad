@@ -41,9 +41,7 @@ const getIdGame = async (req, res) => {
     return res.send(game);
   } catch (error) {
     res.status(500).send(error);
-  } finally {
-    await conn.close();
-  }
+  } 
 };
 const postGame = async (req, res) => {
   const { name, image, description, released, rating, genres, platforms } =
@@ -79,9 +77,7 @@ const postGame = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-  } finally {
-    await conn.close();
-  }
+  } 
 };
 module.exports = {
   getAllGames,
