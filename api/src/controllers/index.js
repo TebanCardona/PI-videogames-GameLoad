@@ -1,11 +1,9 @@
-const {
-  gamesApi,
-  genresApi,
-  gamesNameApi,
-  platformApi,
-} = require("../helpers");
-const { gamesDb, getGenresDb, gamesNameDb } = require("../helpers");
+const { requestAxios, requestDB } = require("../helpers");
 const { Genre } = require("../db");
+
+const { gamesApi, genresApi, gamesNameApi, platformApi } = requestAxios;
+const { gamesDb, getGenresDb, gamesNameDb } = requestDB;
+
 const saveGenresGet = async function () {
   try {
     let dataGenresDb = await getGenresDb();

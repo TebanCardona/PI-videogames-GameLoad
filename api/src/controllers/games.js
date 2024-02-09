@@ -1,9 +1,11 @@
-const { gameIdBd } = require("../helpers");
-const { gameIdApi } = require("../helpers");
-const { getGames, getGamesName, saveGenresGet } = require("./index");
 const { Op } = require("sequelize");
 const { Videogame, Genre, conn } = require("../db");
+const { requestAxios, requestDB } = require("../helpers");
 const { errors } = require("../utils");
+const { getGames, getGamesName, saveGenresGet } = require("./index");
+
+const { gameIdApi } = requestAxios;
+const { gameIdBd } = requestDB;
 const getAllGames = async (req, res) => {
   try {
     const { name } = req.query;

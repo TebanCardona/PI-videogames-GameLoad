@@ -1,8 +1,7 @@
 const { conn } = require("../db");
-const { closeConn } = require("../middleware");
 const { errors } = require("../utils");
 const { saveGenresGet } = require("./index");
-const getAllGenres = async (req, res, next) => {
+const getAllGenres = async (req, res) => {
   try {
     const genres = await saveGenresGet();
     if (genres.length === 0)
@@ -10,8 +9,9 @@ const getAllGenres = async (req, res, next) => {
     res.send(genres);
   } catch (error) {
     throw new errors.ClientError(error, 400);
+  } finally {
+    await conn.close();
   }
-  next(closeConn);
 };
 module.exports = {
   getAllGenres,
