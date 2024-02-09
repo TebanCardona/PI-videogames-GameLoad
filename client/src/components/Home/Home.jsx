@@ -57,14 +57,7 @@ function Home() {
             {pageGames[currentPage]?.map((game) => {
               return (
                 <div key={game.id} className="card">
-                  <Cards
-                    name={game.name}
-                    image={game.image}
-                    id={game.id}
-                    rating={game.rating}
-                    genres={game.genres}
-                    platforms={game.platforms}
-                  />
+                  <Cards game={game} />
                 </div>
               );
             })}

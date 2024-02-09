@@ -1,4 +1,5 @@
 const { PlatformsGet } = require("./index");
+const { conn } = require("../db");
 const getAllPlatforms = async (req, res) => {
   try {
     const platforms = await PlatformsGet();

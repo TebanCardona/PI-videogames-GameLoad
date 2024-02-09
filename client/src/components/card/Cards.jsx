@@ -3,7 +3,8 @@ import { useDispatch } from "react-redux";
 import { addFav, removeFav } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import "../../css/cards.css";
-function Card({ name, image, id, rating, genres, platforms, fav }) {
+function Card({ game }) {
+  let { name, image, id, rating, genres, platforms, fav } = game;
   const dispatch = useDispatch();
   const [favAnimate, setFavAnimate] = useState(fav || false);
   const star = "⭐";
@@ -12,10 +13,10 @@ function Card({ name, image, id, rating, genres, platforms, fav }) {
     setFavAnimate(favA);
 
     if (favA) {
-      fav = true;
+      game.fav = true;
       dispatch(addFav([{ name, image, id, fav }]));
     } else {
-      fav = false;
+      game.fav = false;
       dispatch(removeFav({ name, id, fav }));
     }
   };
@@ -54,11 +55,11 @@ function Card({ name, image, id, rating, genres, platforms, fav }) {
           Rating: {rating} {star.repeat(Number(rating))}
         </h4>
         <h5>Genres:</h5>
-        {genres.map((genre) => (
+        {genres?.map((genre) => (
           <span key={genre}>{genre} | </span>
         ))}{" "}
         <h5>Platforms:</h5>
-        {platforms.map((platform) => (
+        {platforms?.map((platform) => (
           <span key={platform}>{platform} | </span>
         ))}
       </div>
