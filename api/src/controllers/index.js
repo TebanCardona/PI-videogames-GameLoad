@@ -3,8 +3,8 @@ const {
   genresApi,
   gamesNameApi,
   platformApi,
-} = require("./requestaxios");
-const { gamesDb, getGenresDb, gamesNameDb } = require("./requestdb");
+} = require("../helpers");
+const { gamesDb, getGenresDb, gamesNameDb } = require("../helpers");
 const { Genre } = require("../db");
 const saveGenresGet = async function () {
   try {
