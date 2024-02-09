@@ -1,5 +1,5 @@
 const { PlatformsGet } = require("./index");
-const { conn } = require("../db");
+
 const getAllPlatforms = async (req, res) => {
   try {
     const platforms = await PlatformsGet();
@@ -8,8 +8,6 @@ const getAllPlatforms = async (req, res) => {
     res.send(platforms);
   } catch (error) {
     throw new errors.ClientError(error, 400);
-  } finally {
-    return await conn.close();
   }
 };
 module.exports = {

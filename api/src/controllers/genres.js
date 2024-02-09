@@ -1,4 +1,3 @@
-const { conn } = require("../db");
 const { errors } = require("../utils");
 const { saveGenresGet } = require("./index");
 const getAllGenres = async (req, res) => {
@@ -9,8 +8,6 @@ const getAllGenres = async (req, res) => {
     res.send(genres);
   } catch (error) {
     throw new errors.ClientError(error, 400);
-  } finally {
-    await conn.close();
   }
 };
 module.exports = {

@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Videogame, Genre, conn } = require("../db");
+const { Videogame, Genre } = require("../db");
 const { requestAxios, requestDB } = require("../helpers");
 const { errors } = require("../utils");
 const { getGames, getGamesName, saveGenresGet } = require("./index");
@@ -7,30 +7,26 @@ const { getGames, getGamesName, saveGenresGet } = require("./index");
 const { gameIdApi } = requestAxios;
 const { gameIdBd } = requestDB;
 const getAllGames = async (req, res) => {
-  try {
-    const { name } = req.query;
-    if (!name) {
-      try {
-        const games = await getGames();
-        if (games.length === 0)
-          throw new errors.ClientError("Games not found", 404);
+  const { name } = req.query;
+  if (!name) {
+    try {
+      const games = await getGames();
+      if (games.length === 0)
+        throw new errors.ClientError("Games not found", 404);
 
-        res.send(games);
-      } catch (error) {
-        throw new errors.ClientError([error], 400);
-      }
-    } else {
-      try {
-        const games = await getGamesName(name.toLowerCase());
-        if (games.length === 0)
-          throw new errors.ClientError("Game not found", 404);
-        res.send(games);
-      } catch (error) {
-        res.status(400).send([error]);
-      }
+      res.send(games);
+    } catch (error) {
+      throw new errors.ClientError([error], 400);
     }
-  } finally {
-    await conn.close();
+  } else {
+    try {
+      const games = await getGamesName(name.toLowerCase());
+      if (games.length === 0)
+        throw new errors.ClientError("Game not found", 404);
+      res.send(games);
+    } catch (error) {
+      res.status(400).send([error]);
+    }
   }
 };
 const getIdGame = async (req, res) => {
@@ -44,8 +40,6 @@ const getIdGame = async (req, res) => {
     res.send(game);
   } catch (error) {
     throw new errors.ClientError(error, 500);
-  } finally {
-    await conn.close();
   }
 };
 const postGame = async (req, res) => {
@@ -82,8 +76,6 @@ const postGame = async (req, res) => {
     });
   } catch (error) {
     throw new errors.ClientError(error, 400);
-  } finally {
-    await conn.close();
   }
 };
 module.exports = {
