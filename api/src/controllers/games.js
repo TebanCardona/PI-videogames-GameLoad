@@ -25,6 +25,8 @@ const getAllGames = async (req, res) => {
       res.send(games);
     } catch (error) {
       return res.status(400).send([error]);
+    } finally {
+      await conn.close();
     }
   }
 };
@@ -39,6 +41,8 @@ const getIdGame = async (req, res) => {
     return res.send(game);
   } catch (error) {
     res.status(500).send(error);
+  } finally {
+    await conn.close();
   }
 };
 const postGame = async (req, res) => {
@@ -75,6 +79,8 @@ const postGame = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
+  } finally {
+    await conn.close();
   }
 };
 module.exports = {

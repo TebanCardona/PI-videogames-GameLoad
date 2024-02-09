@@ -7,6 +7,8 @@ const getAllPlatforms = async (req, res) => {
     return res.send(platforms);
   } catch (error) {
     return res.status(400).send(error);
+  } finally {
+    await conn.close();
   }
 };
 module.exports = {
