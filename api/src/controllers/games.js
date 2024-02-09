@@ -2,32 +2,35 @@ const { gameIdBd } = require("./requestdb");
 const { gameIdApi } = require("./requestaxios");
 const { getGames, getGamesName, saveGenresGet } = require("./index");
 const { Op } = require("sequelize");
-const { Videogame, Genre } = require("../db");
+const { Videogame, Genre, conn } = require("../db");
 
 const getAllGames = async (req, res) => {
-  const { name } = req.query;
-  if (!name) {
-    try {
-      const games = await getGames();
-      if (games.length === 0)
-        return res.status(404).send({ error: "Not found games" });
-      res.send(games);
-    } catch (error) {
-      return res.status(400).send([error]);
+  try {
+    const { name } = req.query;
+    if (!name) {
+      try {
+        const games = await getGames();
+        if (games.length === 0)
+          res.status(404).send({ error: "Not found games" });
+
+        res.send(games);
+      } catch (error) {
+        res.status(400).send([error]);
+      }
+    } else {
+      try {
+        const games = await getGamesName(name.toLowerCase());
+        if (games.length === 0)
+          res
+            .status(404)
+            .send([{ error: `Not games found wiht this name ${name}` }]);
+        res.send(games);
+      } catch (error) {
+        res.status(400).send([error]);
+      }
     }
-  } else {
-    try {
-      const games = await getGamesName(name.toLowerCase());
-      if (games.length === 0)
-        return res
-          .status(404)
-          .send([{ error: `Not games found wiht this name ${name}` }]);
-      res.send(games);
-    } catch (error) {
-      return res.status(400).send([error]);
-    } finally {
-      await conn.close();
-    }
+  } finally {
+    await conn.close();
   }
 };
 const getIdGame = async (req, res) => {
@@ -36,22 +39,23 @@ const getIdGame = async (req, res) => {
     ? (game = await gameIdBd(idVideogame))
     : (game = await gameIdApi(idVideogame));
   try {
-    if (game === "Not found.")
-      return res.status(404).send({ error: "Id not found" });
-    return res.send(game);
+    if (game === "Not found.") res.status(404).send({ error: "Id not found" });
+    res.send(game);
   } catch (error) {
     res.status(500).send(error);
-  } 
+  } finally {
+    await conn.close();
+  }
 };
 const postGame = async (req, res) => {
   const { name, image, description, released, rating, genres, platforms } =
     req.body;
   try {
     if (!name || !description || !genres || !platforms)
-      return res.status(404).send({ error: "Send all date require" });
+      res.status(404).send({ error: "Send all date require" });
     let findGame = await Videogame.findOne({ where: { name: name } });
     if (findGame)
-      return res
+      res
         .status(404)
         .send({ error: `the game ${name} is already in the database` });
     let newGame = await Videogame.create({
@@ -77,7 +81,9 @@ const postGame = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-  } 
+  } finally {
+    await conn.close();
+  }
 };
 module.exports = {
   getAllGames,
