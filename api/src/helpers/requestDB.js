@@ -1,4 +1,4 @@
-const { Videogame, Genre } = require("../../db");
+const { Videogame, Genre } = require("../db");
 const OrganizeInfo = (game) => {
   return {
     id: game.id,
@@ -9,7 +9,7 @@ const OrganizeInfo = (game) => {
     description: game.description,
     genres: game.genres.map((genre) => genre.name),
     platforms: game.platforms,
-    fav: false
+    fav: false,
   };
 };
 const favDb = async function () {
