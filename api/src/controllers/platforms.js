@@ -4,10 +4,10 @@ const getAllPlatforms = async (req, res) => {
   try {
     const platforms = await PlatformsGet();
     if (platforms.length === 0)
-      res.status(400).send({ error: "Not platforms found" });
+      throw new errors.ClientError("Platforms not found", 404);
     res.send(platforms);
   } catch (error) {
-    res.status(400).send(error);
+    throw new errors.ClientError(error, 400);
   } finally {
     return await conn.close();
   }

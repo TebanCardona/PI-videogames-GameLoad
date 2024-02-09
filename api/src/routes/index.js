@@ -12,6 +12,7 @@ const router = Router();
 router.get("/", (req, res) => {
   res.send({ message: "Okey" });
 });
+
 router.use("/videogames", games);
 router.use("/genres", genres);
 router.use("/platforms", platforms);

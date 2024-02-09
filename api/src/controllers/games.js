@@ -3,6 +3,7 @@ const { gameIdApi } = require("./requestaxios");
 const { getGames, getGamesName, saveGenresGet } = require("./index");
 const { Op } = require("sequelize");
 const { Videogame, Genre, conn } = require("../db");
+const { errors } = require("../utils");
 
 const getAllGames = async (req, res) => {
   try {
@@ -11,19 +12,17 @@ const getAllGames = async (req, res) => {
       try {
         const games = await getGames();
         if (games.length === 0)
-          res.status(404).send({ error: "Not found games" });
+          throw new errors.ClientError("Games not found", 404);
 
         res.send(games);
       } catch (error) {
-        res.status(400).send([error]);
+        throw new errors.ClientError([error], 400);
       }
     } else {
       try {
         const games = await getGamesName(name.toLowerCase());
         if (games.length === 0)
-          res
-            .status(404)
-            .send([{ error: `Not games found wiht this name ${name}` }]);
+          throw new errors.ClientError("Game not found", 404);
         res.send(games);
       } catch (error) {
         res.status(400).send([error]);
@@ -39,10 +38,11 @@ const getIdGame = async (req, res) => {
     ? (game = await gameIdBd(idVideogame))
     : (game = await gameIdApi(idVideogame));
   try {
-    if (game === "Not found.") res.status(404).send({ error: "Id not found" });
+    if (game === "Not found.")
+      throw new errors.ClientError("Game not found", 404);
     res.send(game);
   } catch (error) {
-    res.status(500).send(error);
+    throw new errors.ClientError(error, 500);
   } finally {
     await conn.close();
   }
@@ -52,7 +52,7 @@ const postGame = async (req, res) => {
     req.body;
   try {
     if (!name || !description || !genres || !platforms)
-      res.status(404).send({ error: "Send all date require" });
+      throw new errors.ClientError("Send all information", 406);
     let findGame = await Videogame.findOne({ where: { name: name } });
     if (findGame)
       res
@@ -80,7 +80,7 @@ const postGame = async (req, res) => {
       message: "Game add to Data Base",
     });
   } catch (error) {
-    console.error(error);
+    throw new errors.ClientError(error, 400);
   } finally {
     await conn.close();
   }
