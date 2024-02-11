@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "TebanCardona-Deploy-Frontend " ]
+    branches: [ "TebanCardona-Deploy-Frontend" ]
   pull_request:
-    branches: [ "TebanCardona-Deploy-Frontend " ]
+    branches: [ "TebanCardona-Deploy-Frontend" ]
 
 jobs:
   build:
