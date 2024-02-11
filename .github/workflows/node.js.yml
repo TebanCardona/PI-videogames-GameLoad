@@ -40,6 +40,7 @@ jobs:
         install_command: |
                         pwd
                         cd client/
+                        pwd
                         
                         npm ci
       # Specifies the command to run after the install command for the build
