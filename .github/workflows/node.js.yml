@@ -28,6 +28,7 @@ jobs:
       uses: bitovi/github-actions-react-to-github-pages@v1.2.2
       with:
         node-version: ${{ matrix.node_version }}
+        cache: 'npm'
       # Specifies if this action should checkout the code
         checkout: true 
         # optional, default is true
