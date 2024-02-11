@@ -31,6 +31,7 @@ jobs:
         checkout: true 
         # optional, default is true
       # Specifies the path of the static assets after building
+        shell: ls
         path: /client 
         # optional, default is dist
       # Specifies the command to run the installation.
