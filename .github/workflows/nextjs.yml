@@ -69,7 +69,7 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: |
-          pwd; ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+          cd ${{github.workspace}}/client;pwd;npm i
       - name: Build with Next.js
         run: |
           cd ${{github.workspace}}/client; ${{ steps.detect-package-manager.outputs.runner }} next build
