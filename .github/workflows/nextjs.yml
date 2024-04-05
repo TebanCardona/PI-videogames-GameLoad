@@ -73,6 +73,8 @@ jobs:
       - name: Build with Next.js
         run: |
           cd ${{github.workspace}}/client; ${{ steps.detect-package-manager.outputs.runner }} next build
+      - name: Create out directory (if it doesn't exist)
+        run: mkdir -p ./out
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
