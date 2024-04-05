@@ -69,10 +69,10 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: |
-          cd ${{github.workspace}};pwd;npm i
+          npm i
       - name: Build with Next.js
         run: |
-          cd ${{github.workspace}}; ${{ steps.detect-package-manager.outputs.runner }} next build
+          ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Create out directory (if it doesn't exist)
         run: mkdir -p ./out
       - name: Upload artifact
