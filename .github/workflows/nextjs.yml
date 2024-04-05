@@ -68,11 +68,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
-        run: |
-          npm i
+        run: npm i
       - name: Build with Next.js
-        run: |
-          ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Create out directory (if it doesn't exist)
         run: mkdir -p ./out
       - name: Upload artifact
