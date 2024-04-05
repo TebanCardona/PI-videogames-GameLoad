@@ -1,13 +1,12 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "../../redux/actions";
-import "../../css/pagination.css";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { setCurrentPage } from "@/lib/features/pageSlice";
+import "../../app/css/pagination.css";
 
 export default function Pagination() {
-  const dispatch = useDispatch();
-  const { pages, currentPage } = useSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const { page, currentPage } = useAppSelector((state) => state.pageReducer);
   var pagesArr = [];
-  for (let i = 0; i < pages; i++) {
+  for (let i = 0; i < page; i++) {
     pagesArr.push({ id: i });
   }
   const handleClick = (e) => {

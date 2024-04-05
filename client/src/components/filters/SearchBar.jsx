@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { loading, getGameName, setAllPage } from "../../redux/actions";
-import store from "../../redux/store";
-import "../../css/searchbar.css";
+import { useAppDispatch } from "@/lib/hooks";
+import { setLoad } from "@/lib/features/loadSlice";
+import { gameApi } from "@/lib/services/gameApi";
+import { setAllPage } from "@/lib/features/pageSlice";
+import { setFilter } from "@/lib/features/filterSlice";
+import "../../app/css/searchbar.css";
 export default function SearchBar() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [name, setName] = useState("");
   const handleChange = (e) => {
     setName(e.target.value);
@@ -12,11 +14,19 @@ export default function SearchBar() {
   const handleSubmit = (e) => {
     e.preventDefault();
     async function searchPage() {
-      dispatch(loading(true));
-      await dispatch(getGameName(name));
-      let game = store.getState().games;
-      await dispatch(setAllPage(game));
-      dispatch(loading(false));
+      const fetch = gameApi.endpoints.getGamesByName.initiate(
+        { name },
+        {
+          subscribe: true,
+        }
+      );
+      dispatch(setLoad(true));
+      const games = await dispatch(fetch);
+      if (games.isSuccess) {
+        dispatch(setAllPage(games.data));
+        dispatch(setFilter(games.data));
+        dispatch(setLoad(false));
+      }
     }
     searchPage();
     setName("");

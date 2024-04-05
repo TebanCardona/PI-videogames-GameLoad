@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import linkedin from "../../img/linkedin.png";
-import "../../css/linkedin.css";
+import "../../app/css/linkedin.css";
 
 export default class Footer extends Component {
   render() {

@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllPlatforms, getAllGenres, setAllPage } from "../../redux/actions";
-import imageFilter from "../../img/filter.png";
+import React, { useState, useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useGetPlatformsQuery } from "@/lib/services/platformsApi";
+import { useGetGenresQuery } from "@/lib/services/genresApi";
+import { setAllPage } from "@/lib/features/pageSlice";
 import SearchBar from "./SearchBar";
-import "../../css/filters.css";
+import Image from "next/image";
+import imageFilter from "../../img/filter.png";
+import "../../app/css/filters.css";
 export default function Filters() {
   const [filters, setFilters] = useState({
     genre: "Select",
@@ -12,8 +14,11 @@ export default function Filters() {
     created: false,
     sort: "None",
   });
-  const dispatch = useDispatch();
-  const { genres, games, platforms, load } = useSelector((state) => state);
+  const dispatch = useAppDispatch();
+  const games = useAppSelector((state) => state.filterReducer.gamesFilter);
+  const { load } = useAppSelector((state) => state.loadReducer);
+  const genres = useGetGenresQuery(null).currentData;
+  const platforms = useGetPlatformsQuery(null).currentData;
   const handleChange = (event) => {
     setFilters({
       ...filters,
@@ -24,12 +29,8 @@ export default function Filters() {
     });
   };
   useEffect(() => {
-    dispatch(getAllGenres());
-    dispatch(getAllPlatforms());
-  }, [dispatch]);
-  useEffect(() => {
     if (!load) {
-      var gamesArr = [...games];
+      let gamesArr = games.flat();
       if (filters.created)
         gamesArr = gamesArr.filter((game) => game.id.length > 7);
       if (filters.genre !== "Select") {
@@ -83,21 +84,25 @@ export default function Filters() {
           return 0;
         });
       }
+
       if (games.length > 0) dispatch(setAllPage(gamesArr));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, load]);
 
   return (
     <>
       {" "}
       {load && <></>}
-      {!load && games.length === 1 && <></>}
-      {!load && games.length > 1 && (
+      {!load && games?.length === 0 && <></>}
+      {!load && games?.length > 0 && (
         <div className="filter-all">
           <SearchBar />
           <div className="filter">
-            <img src={imageFilter} alt="logo filter" className="logo-filter" />
+            <Image
+              src={imageFilter}
+              alt="logo filter"
+              className="logo-filter"
+            />
             <span className="title-filters">
               {" "}
               <b> Filters </b>
@@ -127,7 +132,7 @@ export default function Filters() {
                 className="select-filters"
               >
                 <option value="Select">Select</option>
-                {platforms.map((p) => (
+                {platforms?.map((p) => (
                   <option value={p} key={p}>
                     {p}
                   </option>
@@ -144,7 +149,7 @@ export default function Filters() {
                 className="select-filters"
               >
                 <option value="Select">Select</option>
-                {genres.map((genre) => {
+                {genres?.map((genre) => {
                   return (
                     <option value={genre.name} key={genre.id}>
                       {genre.name}

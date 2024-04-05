@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import * as actions from "../../redux/actions";
-import "../../css/detail.css";
+import "../../app/css/detail.css";
 export default function Detail() {
   const dispatch = useDispatch();
   const { id } = useParams();
+
   useEffect(() => {
     async function load() {
       dispatch(actions.loading(true));

@@ -9,7 +9,6 @@ const OrganizeInfo = (game) => {
     description: game.description,
     genres: game.genres.map((genre) => genre.name),
     platforms: game.platforms,
-    fav: false,
   };
 };
 const favDb = async function () {
