@@ -1,6 +1,6 @@
 "use client";
 import background from "../img/preview.gif";
-import "../app/css/landing.css";
+import "./css/landing.css";
 import Link from "next/link";
 import Image from "next/image";
 import Home from "./home/page";
