@@ -34,7 +34,7 @@ jobs:
       - name: Detect package manager
         id: detect-package-manager
         run: |
-          if [ -f "${{ github.workspace }}/client/package.json" ]; then
+          if [ -f "${{ github.workspace }}/package.json" ]; then
             echo "manager=npm" >> $GITHUB_OUTPUT
             echo "command=ci" >> $GITHUB_OUTPUT
             echo "runner=npx --no-install" >> $GITHUB_OUTPUT
@@ -48,7 +48,7 @@ jobs:
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-          cache-dependency-path: "${{github.workspace}}/client/package.json"
+          cache-dependency-path: "${{github.workspace}}/package.json"
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
@@ -69,10 +69,10 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: |
-          cd ${{github.workspace}}/client;pwd;npm i
+          cd ${{github.workspace}};pwd;npm i
       - name: Build with Next.js
         run: |
-          cd ${{github.workspace}}/client; ${{ steps.detect-package-manager.outputs.runner }} next build
+          cd ${{github.workspace}}; ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Create out directory (if it doesn't exist)
         run: mkdir -p ./out
       - name: Upload artifact
