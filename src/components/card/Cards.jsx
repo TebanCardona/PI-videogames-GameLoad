@@ -25,11 +25,11 @@ function Card({ game }) {
         <h4>
           Rating: {rating} {star.repeat(Number(rating))}
         </h4>
-        <h5>Genres:</h5>
+        <h4>Genres:</h4>
         {genres?.map((genre) => (
           <span key={genre}>{genre} | </span>
         ))}{" "}
-        <h5>Platforms:</h5>
+        <h4>Platforms:</h4>
         {platforms?.map((platform) => (
           <span key={platform}>{platform} | </span>
         ))}

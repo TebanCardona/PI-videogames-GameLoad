@@ -1,12 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Nav from "@/components/Nav/Nav";
-import Footer from "@/components/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setLoad } from "@/lib/features/loadSlice";
 import { gameApi, useGetGamesByIdQuery } from "@/lib/services/gameApi";
 import "../../css/detail.css";
-export default function Detail({ params }) {
+function Detail({ params }) {
   const dispatch = useAppDispatch();
   const [gameDetail, setGameDetail] = useState();
   const id = params.slug;
@@ -89,7 +88,7 @@ export default function Detail({ params }) {
           </div>
         )}
       </div>
-      <Footer />
     </>
   );
 }
+export default Detail;

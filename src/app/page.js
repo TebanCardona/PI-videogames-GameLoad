@@ -7,7 +7,7 @@ import Home from "./home/page";
 function page() {
   return (
     <div className="landing">
-      <Image src={background} alt="" className="image-start" />
+      <Image src={background} alt="" className="image-start" unoptimized />
       <div className="landing-content">
         {" "}
         <h1 className="title-start">Games Load</h1>
