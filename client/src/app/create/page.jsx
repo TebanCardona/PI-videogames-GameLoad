@@ -1,18 +1,23 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import Popup from "@/components/popup/Popup";
+import Footer from "@/components/footer/Footer";
 import Genres from "@/components/genre/Genres";
 import Platforms from "@/components/platforms/Platforms";
-import "../css/creategame.css";
 import Nav from "@/components/Nav/Nav";
 import { genresApi, useGetGenresQuery } from "@/lib/services/genresApi";
 import { useGetPlatformsQuery } from "@/lib/services/platformsApi";
 import { gameApi } from "@/lib/services/gameApi";
+import "../css/creategame.css";
 const Creategame = () => {
   const dispatch = useAppDispatch();
   const genres = useGetGenresQuery(null).data;
   const platforms = useGetPlatformsQuery(null).data;
-  const res = {};
+  const [res, setRes] = useState({
+    message: "",
+    show: false,
+  });
   const [errors, setErrors] = useState({
     globalError: true,
   });
@@ -107,24 +112,25 @@ const Creategame = () => {
       });
     }
   };
-  const handleSubmit = (e) => {
+  const handleClose = (e) => {
+    setRes({ ...res, message: "", show: false });
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!errors.globalError) {
       let game = state;
       if (game.image === "") delete game.image;
       if (game.released === "") delete game.released;
       if (game.rating === "") delete game.rating;
-
       if (game.released) game.released = Date.parse(game.released);
       game.genres = game.genres.map((e) => e.name);
       game.platforms = game.platforms.map((e) => e.name);
-      game = JSON.stringify(game);
       const postGame = gameApi.endpoints.postGame.initiate(
         { body: game },
         { subscribe: true }
       );
-      const data = dispatch(postGame);
-      console.log(data);
+      const data = await dispatch(postGame);
+      setRes({ ...res, message: data.data.message, show: true });
       setState({
         name: "",
         image: "",
@@ -141,8 +147,7 @@ const Creategame = () => {
     <>
       <Nav />
       <div className="div-form">
-        {res?.message && <p>{res.message}</p>}
-        {res?.error && <p>{res.error}</p>}
+        {res.show && <Popup message={res.message} handleClose={handleClose} />}
         <form onSubmit={handleSubmit} className={"form-content"}>
           <label className="text-form">
             {" "}

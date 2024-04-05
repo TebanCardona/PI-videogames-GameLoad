@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const URL =  "http://localhost:3001/genres";
+const URL = "https://wandering-snaps-moth.cyclic.app/genres";
+
 
 export const genresApi = createApi({
   reducerPath: "genresApi",

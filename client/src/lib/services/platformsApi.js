@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const URL = "http://localhost:3001/platforms";
+const URL = "https://wandering-snaps-moth.cyclic.app/platforms";
 
 export const platformsApi = createApi({
   reducerPath: "platformsApi",

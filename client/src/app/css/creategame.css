@@ -1,10 +1,18 @@
+body {
+  height: 100%;
+  max-height: 100vw;
+  background-color: #041d22;
+}
+
 .div-form {
   display: flex;
   color: white;
+  height: 100%;
   padding: 1em;
   flex-direction: column;
   align-content: center;
   align-items: center;
+  background-color: #041d22;
 }
 
 .text-form {
@@ -15,7 +23,6 @@
 .img-close {
   width: 32px;
   height: 32px;
-
 }
 
 .div-genres-platforms {
@@ -24,7 +31,7 @@
   background-color: #2c94a9;
   margin: 0.3em;
   border-radius: 0.5em;
-  border: thin solid blue;
+  border: thin solid rgb(18, 64, 82);
 }
 
 .close {
@@ -64,10 +71,11 @@
 
 .date {
   border-radius: 0.5em;
+  text-align: center;
   height: 2.1em;
   color: white;
   background-color: rgba(255, 255, 255, 0);
-  border: thin solid blue;
+  border: thin solid rgb(18, 64, 82);
 }
 
 .date:focus {
@@ -78,8 +86,9 @@
 .textArea-form {
   border-radius: 0.5em;
   background-color: white;
-  border: thin solid blue;
+  border: thin solid rgb(18, 64, 82);
   margin-bottom: 1em;
+  color: black;
 }
 
 .textArea-form:focus {
