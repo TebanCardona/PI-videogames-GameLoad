@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Nav from "@/components/Nav/Nav";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setLoad } from "@/lib/features/loadSlice";
-import { gameApi, useGetGamesByIdQuery } from "@/lib/services/gameApi";
+import { useGetGamesByIdQuery } from "@/lib/services/gameApi";
 import "../../css/detail.css";
 function Detail({ params }) {
   const dispatch = useAppDispatch();
@@ -91,4 +91,5 @@ function Detail({ params }) {
     </>
   );
 }
+
 export default Detail;

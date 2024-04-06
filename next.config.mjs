@@ -1,7 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: "/src",
-  output: "export",
+  basePath: "/client",
+  output: "standalone",
+  reactStrictMode: true,
 };
 
 export default nextConfig;
