@@ -4,7 +4,7 @@ import Nav from "@/components/Nav/Nav";
 import Footer from "@/components/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { setLoad } from "@/lib/features/loadSlice";
-import { gameApi, useGetGamesByIdQuery } from "@/lib/services/gameApi";
+import { useGetGamesByIdQuery } from "@/lib/services/gameApi";
 import "../../css/detail.css";
 export default function Detail({ params }) {
   const dispatch = useAppDispatch();

@@ -1,12 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import React, { useState } from "react";
+import { useAppDispatch } from "@/lib/hooks";
 import Popup from "@/components/popup/Popup";
-import Footer from "@/components/footer/Footer";
 import Genres from "@/components/genre/Genres";
 import Platforms from "@/components/platforms/Platforms";
 import Nav from "@/components/Nav/Nav";
-import { genresApi, useGetGenresQuery } from "@/lib/services/genresApi";
+import { useGetGenresQuery } from "@/lib/services/genresApi";
 import { useGetPlatformsQuery } from "@/lib/services/platformsApi";
 import { gameApi } from "@/lib/services/gameApi";
 import "../css/creategame.css";

@@ -1,10 +1,10 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import joystick from "../../img/joystick.png";
 import create from "../../img/create.png";
 import arrow from "../../img/return.svg";
 import refreshLogo from "../../img/refresh1.png";
-import fav from "../../img/fav.svg";
 import "../../app/css/nav.css";
 import { redirect, useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
