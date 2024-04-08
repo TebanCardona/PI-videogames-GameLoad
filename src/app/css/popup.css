@@ -1,0 +1,23 @@
+.content-popup {
+  margin: 1em;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  background-color: #005f73;
+
+  border-radius: 5px;
+}
+
+.btt-popup {
+  border: none;
+  border-radius: 10px;
+  margin: 6px;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+}
+
+.btt-popup .img-close {
+  width: 30px;
+  height: 30px;
+}
