@@ -1,23 +1,30 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import Nav from "@/components/Nav/Nav";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setLoad } from "@/lib/features/loadSlice";
 import { useGetGamesByIdQuery } from "@/lib/services/gameApi";
 import "../../css/detail.css";
+import { useEffect, useState } from "react";
+import { setLoad } from "@/lib/features/loadSlice";
+
 function Detail({ params }) {
+  const { slug } = params;
+  const [description, setDescription] = useState();
+  const [gameDetail, setgameDetail] = useState();
+
   const dispatch = useAppDispatch();
-  const [gameDetail, setGameDetail] = useState();
-  const id = params.slug;
-  const gameDetailFetch = useGetGamesByIdQuery({ id });
+
+  let gameFetch = useGetGamesByIdQuery({ id: slug });
+
   useEffect(() => {
     dispatch(setLoad(true));
-    if (gameDetailFetch.isSuccess) {
-      setGameDetail(gameDetailFetch.data);
+    if (gameFetch.isSuccess) {
+      setDescription({ __html: gameFetch.data.description });
+      setgameDetail(gameFetch.data);
       dispatch(setLoad(false));
     }
-  }, [dispatch, id, gameDetailFetch.isSuccess]);
-  let { load } = useAppSelector((state) => state.loadReducer);
+  }, [gameFetch]);
+
+  const { load } = useAppSelector((state) => state.loadReducer);
   return (
     <>
       <Nav />
@@ -51,9 +58,7 @@ function Detail({ params }) {
             </div>
             <div className="detail-text">
               <h2>Description: </h2>
-              <div
-                dangerouslySetInnerHTML={{ __html: gameDetail?.description }}
-              ></div>
+              <div dangerouslySetInnerHTML={description}></div>
               <br />
               <br />
               <span className="title-detail">
