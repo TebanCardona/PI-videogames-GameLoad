@@ -1,0 +1,54 @@
+const { requestAxios, requestDB } = require("../helpers");
+const { Genre } = require("../db");
+
+const { gamesApi, genresApi, gamesNameApi, platformApi } = requestAxios;
+const { gamesDb, getGenresDb, gamesNameDb } = requestDB;
+
+const saveGenresGet = async function () {
+  try {
+    let dataGenresDb = await getGenresDb();
+    if (dataGenresDb.length === 0) {
+      const genreApiData = await genresApi();
+      await Genre.bulkCreate(genreApiData);
+      dataGenresDb = await getGenresDb();
+    }
+    return dataGenresDb;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const PlatformsGet = async function () {
+  try {
+    let platforms = await platformApi();
+    const platformsArr = [];
+    platforms.forEach((e) => {
+      platformsArr.push(e);
+    });
+    return platformsArr;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const getGames = () => {
+  try {
+    let info = Promise.all([gamesApi(), gamesDb()]).then((allInfo) => [
+      ...allInfo[1],
+      ...allInfo[0],
+    ]);
+    return info;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const getGamesName = async (name) => {
+  try {
+    let info = await Promise.all([gamesNameApi(name), gamesNameDb(name)]).then(
+      (allInfo) => [...allInfo[1], ...allInfo[0]]
+    );
+    return info;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+module.exports = { saveGenresGet, getGames, getGamesName, PlatformsGet };
